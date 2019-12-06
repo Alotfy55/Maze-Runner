@@ -3,18 +3,18 @@ using namespace std;
 
 The_Maze::The_Maze()
 {
-	length = width = 0;
+	row = coloumn = 0;
 }
 
 
 
 The_Maze::~The_Maze()
 {
-	/*for (int i = 0; i < length; i++) 
+	for (int i = 0; i < row; i++) 
 	{
 		delete[] Maze[i];
 		delete[] visitedPositions[i];
-	}*/
+	}
 	delete[] Maze;
 	delete[] visitedPositions;
 }
@@ -24,12 +24,12 @@ The_Maze::~The_Maze()
 void The_Maze::takeInput(string name)
 {
 		ifstream file(name + ".txt");
-		file >> length >> width;
+		file >> coloumn >> row ;
 		file.ignore();
-		length = length * 2 + 2;
-		width = width * 2 + 2;
+		row = row * 2 + 2;
+		coloumn = coloumn * 2 + 2;
 		creating_2D_arrays();
-		for (int i = 0; i < width; i++) {
+		for (int i = 0; i < row ; i++) {
 			string maze;
 			getline(file, maze);
 			for (int j = 0; j < maze.length(); j++) {
@@ -47,19 +47,20 @@ void The_Maze::takeInput(string name)
 
 void The_Maze::creating_2D_arrays()
 {
-	Maze = new char* [length];
-	visitedPositions = new bool* [length];
-	for (int i = 0; i < length; i++) {
-		Maze[i] = new char[width];
-		visitedPositions[i] = new bool[width];
+	Maze = new char* [row];
+	visitedPositions = new bool* [row];
+	for (int i = 0; i < row; i++) {
+		Maze[i] = new char[coloumn];
+		visitedPositions[i] = new bool[coloumn];
 	}
 }
 
 void The_Maze::printMaze()
 {
-	for (int i = 0; i < width-1; i++)
+	cout << startingPoint.first << " " << startingPoint.second << endl << endingPoint.first << " " << endingPoint.second << endl; 
+	for (int i = 0; i < row - 1 ; i++)
 	{
-		for (int j = 0; j < length-1; j++)
+		for (int j = 0; j < coloumn - 1 ; j++)
 		{
 			cout << Maze[i][j];
 		}
@@ -68,13 +69,7 @@ void The_Maze::printMaze()
 }
 
 void The_Maze::zeroVisitedArray() {
-	for (int i = 0; i < width; i++)
-	{
-		for (int j = 0; j < length; j++)
-		{
-			visitedPositions[i][j] = false;
-		}
-	}
+	memset(visitedPositions, false, sizeof visitedPositions); 
 
 }
 

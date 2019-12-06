@@ -33,7 +33,7 @@ struct node
 };
 
 class The_Maze {
-	int length, width;
+	int row , coloumn;
 	pair <int, int> startingPoint, endingPoint;
 	char** Maze;
 	bool** visitedPositions;
