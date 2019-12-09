@@ -237,7 +237,7 @@ void The_Maze::dfs()
 	
 
 	
-
+	zeroVisitedArray();
 	dfs_help(startingPoint.first,startingPoint.second);
 	while (s.empty() != true)
 	{
