@@ -15,22 +15,6 @@
 
 using namespace std;
 
-struct node
-{
-	int x, y;
-	int DistanceToPoint;
-	node* parent;
-	node()
-	{
-		x = 0; y = 0; DistanceToPoint = 0; parent = NULL;
-	}
-	node(int posx, int posy, int Dist)
-	{
-		x = posx;
-		y = posy;
-		DistanceToPoint = Dist;
-	}
-};
 
 class The_Maze {
 	int row , coloumn;
@@ -38,9 +22,17 @@ class The_Maze {
 	char** Maze;
 	bool** visitedPositions;
 	void creating_2D_arrays();
+	void Generation(); 
+	pair < int, int > GetRandomNeighbour(int, int); 
+	bool isValid(int i, int j); 
+	void ConnectTwoNodes(pair< int, int >, pair < int, int >); 
+	void fillMaze();
+	void CustomizeShapeOfMaze();  
 public:
+	void GenerateMaze(); 
 	The_Maze();
 	void takeInput(string);
+	void clear();
 	~The_Maze();
 	void printMaze();
 	void zeroVisitedArray();
