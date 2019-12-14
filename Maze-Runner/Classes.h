@@ -1,7 +1,4 @@
-﻿//
-// Created by ziad on ٢٤‏/١١‏/٢٠١٩.
-//
-
+﻿
 #ifndef MAZERUNNER_CLASS_H
 #define MAZERUNNER_CLASS_H
 
@@ -18,22 +15,24 @@ using namespace std;
 struct node
 {
 	int x, y;
-	int DistanceToPoint;
-	node* parent;
+
 	node()
 	{
-		x = 0; y = 0; DistanceToPoint = 0; parent = NULL;
+		x = 0; y = 0;
 	}
-	node(int posx, int posy, int Dist)
+	node(int posx, int posy)
 	{
 		x = posx;
 		y = posy;
-		DistanceToPoint = Dist;
 	}
 };
 
 class The_Maze {
 	int length, width;
+
+	queue<node> Node;
+	int x[4]{ 1,-1,0,0 }, y[4]{ 0,0,1,-1 };
+
 	pair <int, int> startingPoint, endingPoint;
 	char** Maze;
 	bool** visitedPositions;
@@ -41,11 +40,17 @@ class The_Maze {
 	void creating_2D_arrays();
 public:
 	The_Maze();
+	stack<pair<int, int>> s;
+	void dfs();
+	void dfs_help();
 	void takeInput(string);
 	~The_Maze();
 	void printMaze();
 	void zeroVisitedArray();
 
+	void BFS();
+	void BFS_Helper(pair<int, pair<int, int>> ** &Cells, node temp, node temp2);
+	void BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node temp2, int count);
 	void BestFirst();
 	double BestFact(pair<int, int>);
 	void bestTrack(pair<int, int>, int);

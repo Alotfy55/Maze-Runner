@@ -4,6 +4,7 @@ using namespace std;
 The_Maze::The_Maze()
 {
 	length = width = 0;
+
 }
 
 
@@ -107,7 +108,7 @@ void The_Maze::BestFirst() {
 			bestTrack(x.second, 0);
 			return;
 		}
-		node point(x.second.first, x.second.second, 0);
+		node point(x.second.first, x.second.second);
 		getChildren(point, searchQueue);
 
 	}
@@ -158,101 +159,89 @@ void The_Maze::getChild(node point, int x, int y, priority_queue<pair<double, pa
 		searchingQueue.push(append);
 	}
 }
-//void The_Maze::BFS()
-//{
-//	int count = 1;
-//	queue<node> Node;
-//	node start{ -1,-1,-1 };
-//	zeroVisitedArray();
-//	node temp(startingPoint.first, startingPoint.second, 0), temp2(0, 0, 0);
-//	temp.Parent = &start;
-//	Node.push(temp);
-//	visitedPositions[temp.x][temp.y] = true;
-//	while (!Node.empty())
-//	{
-//		count++;
-//		temp = Node.front();
-//		Node.pop();
-//		visitedPositions[temp.x][temp.y] = true;
-//		if (temp.x == endingPoint.first && temp.y == endingPoint.second)
-//		{
-//			visitedPositions[temp.x][temp.y] = 1;
-//			temp.DistanceToPoint = temp.Parent->DistanceToPoint + 1;
-//			pair<int, int> * visited = new pair<int, int>[temp.Parent->DistanceToPoint + 1];
-//			node * temporary = &temp;
-//			for (int i = 0; i < temp.DistanceToPoint + 1; i++)
-//			{
-//				visited[i].first = temporary->x;
-//				visited[i].second = temporary->y;
-//				temporary = temp.Parent;
-//			}
-//			cout << "Breadth First Search: ";
-//			for (int i = temp.DistanceToPoint + 1; i > 0; i--)
-//			{
-//				cout << '(' << visited->first << ',' << visited->second << ')' << ' ';
-//			}
-//			cout << endl << "Length of Path: " << temp.DistanceToPoint << endl;
-//			cout << "Number of Cells Visited: " << count << endl;
-//
-//			break;
-//		}
-//		else {
-//			if ((Maze[temp.x + 1][temp.y] == ' ' || Maze[temp.x + 1][temp.y] == 'E') &&
-//				visitedPositions[temp.x + 1][temp.y] == 0) {
-//				temp2 = temp;
-//				temp2.x++;
-//				if (Maze[temp.x + 1][temp.y - 1] != '+'&&Maze[temp.x + 1][temp.y + 1] != '+') {
-//					temp.DistanceToPoint = temp.Parent->DistanceToPoint + 1;
-//					temp2.Parent = &temp;
-//				}
-//				else {
-//					temp.DistanceToPoint = temp.Parent->DistanceToPoint;
-//					temp2.Parent = temp.Parent;
-//				}
-//				Node.push(temp2);
-//			}
-//			if ((Maze[temp.x - 1][temp.y] == ' ' || Maze[temp.x - 1][temp.y] == 'E') &&
-//				visitedPositions[temp.x - 1][temp.y] == 0) {
-//				temp2 = temp;
-//				temp2.x--;
-//				if (Maze[temp.x - 1][temp.y - 1] != '+' || Maze[temp.x - 1][temp.y + 1] != '+') {
-//					temp.DistanceToPoint = temp.Parent->DistanceToPoint + 1;
-//					temp2.Parent = &temp;
-//				}
-//				else {
-//					temp.DistanceToPoint = temp.Parent->DistanceToPoint;
-//					temp2.Parent = temp.Parent;
-//				}
-//				Node.push(temp2);
-//			}
-//			if ((Maze[temp.x][temp.y + 1] == ' ' || Maze[temp.x][temp.y + 1] == 'E') &&
-//				visitedPositions[temp.x][temp.y + 1] == 0) {
-//				temp2 = temp;
-//				temp2.y++;
-//				if (Maze[temp.x - 1][temp.y + 1] != '+' || Maze[temp.x + 1][temp.y + 1] != '+') {
-//					temp.DistanceToPoint = temp.Parent->DistanceToPoint + 1;
-//					temp2.Parent = &temp;
-//				}
-//				else {
-//					temp.DistanceToPoint = temp.Parent->DistanceToPoint;
-//					temp2.Parent = temp.Parent;
-//				}
-//				Node.push(temp2);
-//			}
-//			if ((Maze[temp.x][temp.y - 1] == ' ' || Maze[temp.x][temp.y - 1] == ' ') &&
-//				visitedPositions[temp.x][temp.y - 1] == 0) {
-//				temp2 = temp;
-//				temp2.y--;
-//				if (Maze[temp.x - 1][temp.y - 1] != '+' || Maze[temp.x + 1][temp.y - 1] != '+') {
-//					temp.DistanceToPoint = temp.Parent->DistanceToPoint + 1;
-//					temp2.Parent = &temp;
-//				}
-//				else {
-//					temp.DistanceToPoint = temp.Parent->DistanceToPoint;
-//					temp2.Parent = temp.Parent;
-//				}
-//				Node.push(temp2);
-//			}
-//		}
-//	}
-//}
+
+void The_Maze::BFS()
+{
+	zeroVisitedArray();
+	int count = 0;
+
+	pair<int, pair<int, int>> ** Cells = new pair<int, pair<int, int>>*[length];
+	for (int i = 0; i < length; i++)
+	{
+		Cells[i] = new pair<int, pair<int, int>>[width];
+	}
+
+	node temp(startingPoint.first, startingPoint.second), temp2(0, 0);
+
+	Node.push(temp);
+	visitedPositions[temp.x][temp.y] = true;
+
+	Cells[temp.x][temp.y].first = 0;
+	Cells[temp.x][temp.y].second.first = -1;
+	Cells[temp.x][temp.y].second.second = -1;
+
+	while (!Node.empty())
+	{
+		temp = Node.front();
+		Node.pop();
+		visitedPositions[temp.x][temp.y] = true;
+
+		if (temp.x == endingPoint.first && temp.y == endingPoint.second)
+		{
+			BFS_Found(Cells, temp, temp2, count);
+			break;
+		}
+		else {
+			BFS_Helper(Cells, temp, temp2);
+		}
+		count++;
+	}
+}
+
+void The_Maze::BFS_Helper(pair<int, pair<int, int>> ** &Cells, node temp, node temp2) //Checks Neighbouring cells.
+{
+	for (int i = 0; i < 4; i++) {
+		if ((Maze[temp.x + x[i]][temp.y + y[i]] == ' ' || Maze[temp.x + x[i]][temp.y + y[i]] == 'E') &&
+			visitedPositions[temp.x + x[i]][temp.y + y[i]] == 0)
+		{
+			Cells[temp.x + x[i]][temp.y + y[i]].first = Cells[temp.x][temp.y].first + 1;
+			Cells[temp.x + x[i]][temp.y + y[i]].second.first = temp.x;
+			Cells[temp.x + x[i]][temp.y + y[i]].second.second = temp.y;
+			temp2 = temp;
+			temp2.x += x[i];
+			temp2.y += y[i];
+			Node.push(temp2);
+		}
+	}
+}
+void The_Maze::BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node temp2, int count)
+{
+	int z = 0, xAxis;
+	pair<int, int> *BackTrack = new pair<int, int>[count];
+	visitedPositions[temp.x][temp.y] = true;
+
+	BackTrack[0].first = temp.x;
+	BackTrack[0].second = temp.y;
+	while (Cells[temp.x][temp.y].second.first != -1)
+	{
+		BackTrack[z].first = Cells[temp.x][temp.y].second.first;
+		BackTrack[z].second = Cells[temp.x][temp.y].second.second;
+		xAxis = temp.x;
+		temp.x = Cells[temp.x][temp.y].second.first;
+		temp.y = Cells[xAxis][temp.y].second.second;
+		z++;
+	}
+
+	pair<int, int> *BackTrack2 = new pair<int, int>[z / 2 + 1];
+	int iterator = z / 2;
+	for (int j = z; j >= 0; j = j - 2)
+	{
+
+		BackTrack2[iterator] = BackTrack[j];
+		iterator--;
+	}
+
+	printMethod(z / 2, count / 2, BackTrack2, "Breadth First Search");
+
+
+}
