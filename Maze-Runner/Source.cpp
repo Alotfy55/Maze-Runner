@@ -6,5 +6,6 @@ int main() {
 	The_Maze maze;
 	maze.takeInput("Maze");
 	maze.printMaze();
+	maze.BestFirst();
 	return 0;
 }
