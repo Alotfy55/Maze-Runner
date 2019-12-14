@@ -1,4 +1,3 @@
-
 #ifndef MAZERUNNER_CLASS_H
 #define MAZERUNNER_CLASS_H
 
@@ -28,10 +27,12 @@ struct node
 };
 
 class The_Maze {
-	int length, width;
+	int row, coloumn;
 	pair <int, int> startingPoint, endingPoint;
-	char** Maze;
-	bool** visitedPositions;
+	queue<node> Node;
+
+	char ** Maze;
+	bool ** visitedPositions;
 	pair<int, int>** parents;
 	void creating_2D_arrays();
 	stack<pair<int, int>> s;
@@ -43,14 +44,17 @@ public:
 	~The_Maze();
 	void printMaze();
 	void zeroVisitedArray();
-	void BFS();
+
 	void BestFirst();
 	double BestFact(pair<int, int>);
-	void bestTrack(pair<int, int>, int);
+	int bestTrack(pair<int, int>, int, pair<int, int>[]);
 	void getChildren(node, priority_queue<pair<double, pair<int, int>>>&);
 	void getChild(node, int, int, priority_queue<pair<double, pair<int, int>>>&);
-	void bestTrack(node);
-	bool dfs_help(int i , int j);
+	void printMethod(int, int, pair<int, int>[], string);
+	void BFS();
+	void BFS_Helper(pair<int, pair<int, int>> ** &Cells, node temp, node temp2);
+	void BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node temp2, int count);
+	bool dfs_help(int i, int j);
 	void dfs();
 };
 
