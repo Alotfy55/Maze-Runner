@@ -8,6 +8,6 @@ int main() {
 	maze.printMaze();
 	/*maze.dfs_help();*/
 	/*maze.BestFirst();*/
-	maze.BFS();
+	/*maze.BFS();*/
 	return 0;
 }
