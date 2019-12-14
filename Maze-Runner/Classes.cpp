@@ -37,6 +37,7 @@ void The_Maze::takeInput(string name)
 			}
 			if (Maze[i][j] == 'E') {
 				endingPoint = { i, j };
+
 			}
 		}
 	}
@@ -46,6 +47,7 @@ void The_Maze::creating_2D_arrays()
 {
 	Maze = new char* [row];
 	parents = new pair<int, int>* [row];
+
 	visitedPositions = new bool* [row];
 	for (int i = 0; i < row; i++) {
 		Maze[i] = new char[coloumn];
@@ -60,6 +62,7 @@ void The_Maze::printMaze()
 	for (int i = 0; i < row - 1; i++)
 	{
 		for (int j = 0; j < coloumn - 1; j++)
+
 		{
 			cout << Maze[i][j];
 		}
@@ -147,6 +150,7 @@ void The_Maze::getChild(node point, int x, int y, priority_queue<pair<double, pa
 	if (Maze[point.x + x][point.y + y] == ' ' && !visitedPositions[point.x + (x * 2)][point.y + (y * 2)])
 	{
 		visitedPositions[point.x + (x * 2)][point.y + (y * 2)] = true;
+
 
 		pair<int, int> newPoint;
 		newPoint.first = point.x + (x * 2);
