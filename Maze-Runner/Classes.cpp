@@ -37,7 +37,6 @@ void The_Maze::takeInput(string name)
 			}
 			if (Maze[i][j] == 'E') {
 				endingPoint = { i, j };
-
 			}
 		}
 	}
@@ -58,11 +57,11 @@ void The_Maze::creating_2D_arrays()
 
 void The_Maze::printMaze()
 {
+
 	cout << startingPoint.first << " " << startingPoint.second << endl << endingPoint.first << " " << endingPoint.second << endl;
 	for (int i = 0; i < row - 1; i++)
 	{
 		for (int j = 0; j < coloumn - 1; j++)
-
 		{
 			cout << Maze[i][j];
 		}
@@ -166,6 +165,91 @@ void The_Maze::getChild(node point, int x, int y, priority_queue<pair<double, pa
 
 		searchingQueue.push(append);
 	}
+}
+
+void The_Maze::BFS()
+{
+	zeroVisitedArray();
+	int count = 0;
+
+	pair<int, pair<int, int>> ** Cells = new pair<int, pair<int, int>>*[row];
+	for (int i = 0; i < rows; i++)
+	{
+		Cells[i] = new pair<int, pair<int, int>>[column];
+	}
+
+	node temp(startingPoint.first, startingPoint.second), temp2(0, 0);
+
+	Node.push(temp);
+	visitedPositions[temp.x][temp.y] = true;
+
+	Cells[temp.x][temp.y].first = 0;
+	Cells[temp.x][temp.y].second.first = -1;
+	Cells[temp.x][temp.y].second.second = -1;
+
+	while (!Node.empty())
+	{
+		temp = Node.front();
+		Node.pop();
+		visitedPositions[temp.x][temp.y] = true;
+
+		if (temp.x == endingPoint.first && temp.y == endingPoint.second)
+		{
+			BFS_Found(Cells, temp, temp2, count);
+			break;
+		}
+		else {
+			BFS_Helper(Cells, temp, temp2);
+		}
+		count++;
+	}
+}
+
+void The_Maze::BFS_Helper(pair<int, pair<int, int>> ** &Cells, node temp, node temp2) //Checks Neighbouring cells.
+{
+	for (int i = 0; i < 4; i++) {
+		if ((Maze[temp.x + x[i]][temp.y + y[i]] == ' ' || Maze[temp.x + x[i]][temp.y + y[i]] == 'E') &&
+			visitedPositions[temp.x + x[i]][temp.y + y[i]] == 0)
+		{
+			Cells[temp.x + x[i]][temp.y + y[i]].first = Cells[temp.x][temp.y].first + 1;
+			Cells[temp.x + x[i]][temp.y + y[i]].second.first = temp.x;
+			Cells[temp.x + x[i]][temp.y + y[i]].second.second = temp.y;
+			temp2 = temp;
+			temp2.x += x[i];
+			temp2.y += y[i];
+			Node.push(temp2);
+		}
+	}
+}
+void The_Maze::BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node temp2, int count)
+{
+	int z = 0, xAxis;
+	pair<int, int> *BackTrack = new pair<int, int>[count];
+	visitedPositions[temp.x][temp.y] = true;
+
+	BackTrack[0].first = temp.x;
+	BackTrack[0].second = temp.y;
+	while (Cells[temp.x][temp.y].second.first != -1)
+	{
+		BackTrack[z].first = Cells[temp.x][temp.y].second.first;
+		BackTrack[z].second = Cells[temp.x][temp.y].second.second;
+		xAxis = temp.x;
+		temp.x = Cells[temp.x][temp.y].second.first;
+		temp.y = Cells[xAxis][temp.y].second.second;
+		z++;
+	}
+
+	pair<int, int> *BackTrack2 = new pair<int, int>[z / 2 + 1];
+	int iterator = z / 2;
+	for (int j = z; j >= 0; j = j - 2)
+	{
+
+		BackTrack2[iterator] = BackTrack[j];
+		iterator--;
+	}
+
+	printMethod(z / 2, count / 2, BackTrack2, "Breadth First Search");
+
 }
 
 void The_Maze::printMethod(int length, int visited, pair<int, int>path[] , string method)

@@ -6,7 +6,8 @@ int main() {
 	The_Maze maze;
 	maze.takeInput("Maze");
 	maze.printMaze();
-	cout << endl << "***************************************************************************************\n\n" << endl;
-	maze.BestFirst();
+	/*maze.dfs_help();*/
+	/*maze.BestFirst();*/
+	/*maze.BFS();*/
 	return 0;
 }
