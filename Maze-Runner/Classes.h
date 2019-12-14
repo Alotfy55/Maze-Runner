@@ -18,17 +18,15 @@ using namespace std;
 struct node
 {
 	int x, y;
-	int DistanceToPoint;
-	node* parent;
+
 	node()
 	{
-		x = 0; y = 0; DistanceToPoint = 0; parent = NULL;
+		x = 0; y = 0;
 	}
-	node(int posx, int posy, int Dist)
+	node(int posx, int posy)
 	{
 		x = posx;
 		y = posy;
-		DistanceToPoint = Dist;
 	}
 };
 
@@ -37,14 +35,22 @@ class The_Maze {
 	pair <int, int> startingPoint, endingPoint;
 	char** Maze;
 	bool** visitedPositions;
+	pair<int, int>** parents;
 	void creating_2D_arrays();
 public:
 	The_Maze();
+	void BFS();
 	void takeInput(string);
 	~The_Maze();
 	void printMaze();
 	void zeroVisitedArray();
-	
+
+	void BestFirst();
+	double BestFact(pair<int,int>);
+	int bestTrack(pair<int,int> , int , pair<int, int>[]);
+	void getChildren(node, priority_queue<pair<double, pair<int, int>>>&);
+	void getChild(node, int, int, priority_queue<pair<double, pair<int, int>>>&);
+	void printMethod(int, int, pair<int, int>[], string);
 };
 
 
