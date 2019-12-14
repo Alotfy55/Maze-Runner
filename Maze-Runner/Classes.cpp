@@ -173,9 +173,9 @@ void The_Maze::BFS()
 	int count = 0;
 
 	pair<int, pair<int, int>> ** Cells = new pair<int, pair<int, int>>*[row];
-	for (int i = 0; i < rows; i++)
+	for (int i = 0; i < row; i++)
 	{
-		Cells[i] = new pair<int, pair<int, int>>[column];
+		Cells[i] = new pair<int, pair<int, int>>[coloumn];
 	}
 
 	node temp(startingPoint.first, startingPoint.second), temp2(0, 0);
@@ -207,6 +207,7 @@ void The_Maze::BFS()
 
 void The_Maze::BFS_Helper(pair<int, pair<int, int>> ** &Cells, node temp, node temp2) //Checks Neighbouring cells.
 {
+	int x[4]{ 1,-1,0,0 }, y[4]{ 0,0,1,-1 };
 	for (int i = 0; i < 4; i++) {
 		if ((Maze[temp.x + x[i]][temp.y + y[i]] == ' ' || Maze[temp.x + x[i]][temp.y + y[i]] == 'E') &&
 			visitedPositions[temp.x + x[i]][temp.y + y[i]] == 0)
