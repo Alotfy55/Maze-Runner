@@ -37,6 +37,7 @@ class The_Maze {
 	pair <int, int> startingPoint, endingPoint;
 	char** Maze;
 	bool** visitedPositions;
+	pair<int, int>** parents;
 	void creating_2D_arrays();
 public:
 	The_Maze();
@@ -44,7 +45,13 @@ public:
 	~The_Maze();
 	void printMaze();
 	void zeroVisitedArray();
-	
+
+	void BestFirst();
+	double BestFact(pair<int, int>);
+	void bestTrack(pair<int, int>, int);
+	void getChildren(node, priority_queue<pair<double, pair<int, int>>>&);
+	void getChild(node, int, int, priority_queue<pair<double, pair<int, int>>>&);
+	void bestTrack(node);
 };
 
 
