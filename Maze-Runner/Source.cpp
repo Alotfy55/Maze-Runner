@@ -16,6 +16,9 @@ int main() {
 			cout << "Enter the file name : "; 
 			cin >> Mazename; 
 			Maze.takeInput(Mazename); 
+			Maze.BestFirst();
+			Maze.BFS();
+			Maze.dfs();
 		}
 		else if (choice == 2) {
 			Maze.GenerateMaze(); 

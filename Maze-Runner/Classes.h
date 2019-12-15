@@ -33,7 +33,7 @@ class The_Maze {
 	pair <int, int> startingPoint, endingPoint;
 	char** Maze;
 	bool** visitedPositions;
-  queue<node> Node;
+	queue<node> Node;
 	pair<int, int>** parents;
 	stack<pair<int, int>> s;
 	int dfs_path_ctr = 0;
@@ -49,7 +49,7 @@ class The_Maze {
 	/////
 	void zeroVisitedArray();
 	void clear();
-  void printMethod(int, int, pair<int, int>[], string);
+	void printMethod(int, int, pair<int, int>[], string);
   /////
 	double BestFact(pair<int, int>);
 	int bestTrack(pair<int, int>, int, pair<int, int>[]);
@@ -59,7 +59,7 @@ class The_Maze {
 	void BFS_Helper(pair<int, pair<int, int>> ** &Cells, node temp, node temp2);
 	void BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node temp2, int count);
 	////
-  bool dfs_help(int i, int j);
+	bool dfs_help(int i, int j);
 	
 
 
@@ -69,9 +69,9 @@ public:
 	void GenerateMaze(); 
 	void takeInput(string);
 	void printMaze();
-  void BestFirst();
-  void BFS();
-  void dfs();
+	void BestFirst();
+	void BFS();
+	void dfs();
 };
 
 
