@@ -3,6 +3,7 @@
 using namespace std;
 
 int main() {
+
 	The_Maze Maze;
 	cout << "Welcome to MazeRunner\n"; 
 	while (true) {
@@ -21,6 +22,5 @@ int main() {
 		}
 		Maze.printMaze(); 
 	}
-	 
 	return 0;
 }
