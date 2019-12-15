@@ -56,7 +56,7 @@ void The_Maze::takeInput(string name)
 }
 
 
-//// allocating the dymaic arrays 
+//// allocating the dynamic arrays 
 void The_Maze::creating_2D_arrays()
 {
 	Maze = new char* [row];
@@ -82,7 +82,7 @@ void The_Maze::printMaze()
 }
 
 
-//// intializing all the visited array with zeros 
+//// initializing all the visited array with zeros 
 void The_Maze::zeroVisitedArray() {
 	for (int i = 0; i < row; i++) {
 		for (int j = 0; j < coloumn; j++) {
@@ -155,7 +155,7 @@ pair < int , int > The_Maze::GetRandomNeighbour(int i , int j ) {
 }
 
 
-//// Returns true if the random neighbours is within the boundries of the maze 
+//// Returns true if the random neighbours is within the boundaries of the maze 
 bool The_Maze::isValid(int i, int j) {
 	return i >= 1 && j >= 1 && i < row-1 && j < coloumn-1; 
 }
@@ -240,7 +240,7 @@ void The_Maze::CustomizeShapeOfMaze() {
 			
 		}
 	}
-	for (int i = 0; i < row - 1; i++) {		
+	for (int i = 0; i < row - 1; i++) {		// adding the last element '-'
 		for (int j = 0; j < coloumn - 1; j++) {
 			if (Maze[i][j] == '#') {
 				Maze[i][j] = '-'; 

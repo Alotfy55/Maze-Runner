@@ -21,21 +21,23 @@ class The_Maze {
 	pair <int, int> startingPoint, endingPoint;
 	char** Maze;
 	bool** visitedPositions;
+	///// Generation of the maze 
 	void creating_2D_arrays();
 	void Generation(); 
 	pair < int, int > GetRandomNeighbour(int, int); 
 	bool isValid(int i, int j); 
 	void ConnectTwoNodes(pair< int, int >, pair < int, int >); 
 	void fillMaze();
-	void CustomizeShapeOfMaze();  
-public:
-	void GenerateMaze(); 
-	The_Maze();
-	void takeInput(string);
-	void clear();
-	~The_Maze();
-	void printMaze();
+	void CustomizeShapeOfMaze();
+	/////
 	void zeroVisitedArray();
+	void clear();
+public:
+	The_Maze();
+	~The_Maze();
+	void GenerateMaze(); 
+	void takeInput(string);
+	void printMaze();
 	
 };
 
