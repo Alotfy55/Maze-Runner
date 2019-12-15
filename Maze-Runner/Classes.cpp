@@ -110,7 +110,6 @@ void The_Maze::GenerateMaze()
 	fillMaze(); 
 	Generation(); 
 	CustomizeShapeOfMaze() ;
-	
 }
 
 
@@ -133,6 +132,8 @@ void The_Maze::Generation() {
 	}
 	Maze[1][1] = 'S'; 
 	Maze[row - 3][coloumn - 3] = 'E'; 
+	startingPoint = { 1,1 }; 
+	endingPoint = { row - 3 , coloumn - 3 }; 
 }
 
 
@@ -442,7 +443,7 @@ void The_Maze::dfs()
 
 bool The_Maze::dfs_help(int i, int j)
 {
-	visitedPositions[i][j] == true;
+	visitedPositions[i][j] = true;
 	pair<int, int>temp;
 	temp.first = i;
 	temp.second = j;

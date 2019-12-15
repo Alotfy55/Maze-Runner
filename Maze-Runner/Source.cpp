@@ -23,7 +23,11 @@ int main() {
 		else if (choice == 2) {
 			Maze.GenerateMaze(); 
 		}
-		Maze.printMaze(); 
+		Maze.printMaze();
+		Maze.BestFirst();
+		Maze.BFS();
+		Maze.dfs(); 
+		 
 	}
 	return 0;
 }

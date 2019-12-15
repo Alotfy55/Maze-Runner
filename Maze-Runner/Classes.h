@@ -50,7 +50,7 @@ class The_Maze {
 	void zeroVisitedArray();
 	void clear();
 	void printMethod(int, int, pair<int, int>[], string);
-  /////
+	/////
 	double BestFact(pair<int, int>);
 	int bestTrack(pair<int, int>, int, pair<int, int>[]);
 	void getChildren(node, priority_queue<pair<double, pair<int, int>>>&);
