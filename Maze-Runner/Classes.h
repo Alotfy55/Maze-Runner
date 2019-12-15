@@ -1,3 +1,4 @@
+
 #ifndef MAZERUNNER_CLASS_H
 #define MAZERUNNER_CLASS_H
 
@@ -44,7 +45,6 @@ public:
 	~The_Maze();
 	void printMaze();
 	void zeroVisitedArray();
-
 	void BestFirst();
 	double BestFact(pair<int, int>);
 	int bestTrack(pair<int, int>, int, pair<int, int>[]);

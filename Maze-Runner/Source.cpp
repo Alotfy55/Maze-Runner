@@ -6,12 +6,8 @@ int main() {
 	The_Maze maze;
 	maze.takeInput("Maze");
 	maze.printMaze();
-
-	maze.BestFirst();
-
-	maze.BFS();
-
 	maze.dfs();
-	system("pause");
+	maze.BestFirst();
+	maze.BFS();
 	return 0;
 }

@@ -46,7 +46,6 @@ void The_Maze::creating_2D_arrays()
 {
 	Maze = new char*[row];
 	parents = new pair<int, int>*[row];
-
 	visitedPositions = new bool*[row];
 	for (int i = 0; i < row; i++) {
 		Maze[i] = new char[coloumn];
@@ -244,7 +243,6 @@ void The_Maze::BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node te
 	int iterator = z / 2;
 	for (int j = z; j >= 0; j = j - 2)
 	{
-
 		BackTrack2[iterator] = BackTrack[j];
 		iterator--;
 	}
@@ -256,8 +254,8 @@ void The_Maze::dfs()
 {
 	zeroVisitedArray();
 	dfs_help(startingPoint.first, startingPoint.second);
-	pair<int, int>* path = new pair<int,int>[s.size()+1] ;
-	int i = s.size()-1;
+	pair<int, int>* path = new pair<int, int>[s.size() + 1];
+	int i = s.size() - 1;
 	while (s.empty() != true)
 	{
 		path[i].first = s.top().first;
