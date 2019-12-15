@@ -44,10 +44,9 @@ void The_Maze::takeInput(string name)
 
 void The_Maze::creating_2D_arrays()
 {
-	Maze = new char* [row];
-	parents = new pair<int, int>* [row];
-
-	visitedPositions = new bool* [row];
+	Maze = new char*[row];
+	parents = new pair<int, int>*[row];
+	visitedPositions = new bool*[row];
 	for (int i = 0; i < row; i++) {
 		Maze[i] = new char[coloumn];
 		visitedPositions[i] = new bool[coloumn];
@@ -79,57 +78,57 @@ void The_Maze::zeroVisitedArray() {
 	}
 }
 
-double The_Maze::BestFact(pair<int,int> point)
+double The_Maze::BestFact(pair<int, int> point)
 {
 	double fact = sqrt(pow((endingPoint.first - point.first), 2) + pow((endingPoint.second - point.second), 2));
 	return -fact;
 }
 
 void The_Maze::BestFirst() {
-	
+
 	zeroVisitedArray();
 	priority_queue<pair<double, pair<int, int>>> searchQueue;
 	pair<double, pair<int, int>> start;
-	
+
 	start.first = 0;
 	start.second = startingPoint;
-	
+
 	visitedPositions[startingPoint.first][startingPoint.second] = true;
-	
+
 	searchQueue.push(start);
-	
-	parents[startingPoint.first][startingPoint.second] = {-1 , -1};
-	
+
+	parents[startingPoint.first][startingPoint.second] = { -1 , -1 };
+
 	int i = 0;
 	while (!searchQueue.empty())
 	{
 		i++;
 		pair<double, pair <int, int>> x = searchQueue.top();
 		searchQueue.pop();
-	
+
 		if (x.second == endingPoint)
 		{
-			pair<int, int>* path = new pair<int, int>[i+1];
-			int length = bestTrack(x.second , 0 , path);
+			pair<int, int>* path = new pair<int, int>[i + 1];
+			int length = bestTrack(x.second, 0, path);
 			printMethod(length, i, path, "Best First Search");
 			return;
 		}
-		
+
 		node point(x.second.first, x.second.second);
 		getChildren(point, searchQueue);
-		
+
 	}
 }
 
-int The_Maze::bestTrack(pair<int, int> point , int count , pair<int, int> path [])
+int The_Maze::bestTrack(pair<int, int> point, int count, pair<int, int> path[])
 {
 	pair<int, int> base = { -1,-1 };
 	if (parents[point.first][point.second] == base)
 	{
-		path[count] = point; 
+		path[count] = point;
 		return count;
 	}
-	int x = bestTrack(parents[point.first][point.second], count + 1 , path);
+	int x = bestTrack(parents[point.first][point.second], count + 1, path);
 	path[count] = point;
 	return x;
 }
@@ -244,7 +243,6 @@ void The_Maze::BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node te
 	int iterator = z / 2;
 	for (int j = z; j >= 0; j = j - 2)
 	{
-
 		BackTrack2[iterator] = BackTrack[j];
 		iterator--;
 	}
@@ -252,12 +250,79 @@ void The_Maze::BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node te
 	printMethod(z / 2, count / 2, BackTrack2, "Breadth First Search");
 
 }
+void The_Maze::dfs()
+{
+	zeroVisitedArray();
+	dfs_help(startingPoint.first, startingPoint.second);
+	pair<int, int>* path = new pair<int, int>[s.size() + 1];
+	int i = s.size() - 1;
+	while (s.empty() != true)
+	{
+		path[i].first = s.top().first;
+		path[i].second = s.top().second;
+		s.pop();
+		i--;
+	}
+	printMethod(dfs_path_ctr, dfs_steps_ctr, path, "Depth First Search");
+}
 
-void The_Maze::printMethod(int length, int visited, pair<int, int>path[] , string method)
+
+bool The_Maze::dfs_help(int i, int j)
+{
+	visitedPositions[i][j] == true;
+	pair<int, int>temp;
+	temp.first = i;
+	temp.second = j;
+	if (Maze[i][j] == 'E')
+	{
+		dfs_steps_ctr++;
+		s.push(temp);
+		//dfs_path_ctr++;
+		return true;
+	}
+	if (Maze[i + 1][j] == ' '&&visitedPositions[i + 2][j] != true)
+	{
+
+		visitedPositions[i + 2][j] = true;
+		dfs_steps_ctr++;
+		if (dfs_help(i + 2, j))
+		{
+			dfs_path_ctr++;
+
+			s.push(temp);
+			return true;
+		}
+	}
+	if (Maze[i][j + 1] == ' '&&visitedPositions[i][j + 2] != true)
+	{
+		visitedPositions[i][j + 2] = true;
+		dfs_steps_ctr++;
+		if (dfs_help(i, j + 2))
+		{
+			dfs_path_ctr++;
+			s.push(temp);
+			return true;
+		}
+	}
+	if (Maze[i][j - 1] == ' '&&visitedPositions[i][j - 2] != true)
+	{
+		visitedPositions[i][j - 2] = true;
+		dfs_steps_ctr++;
+		if (dfs_help(i, j - 2))
+		{
+			dfs_path_ctr++;
+			s.push(temp);
+			return true;
+		}
+	}
+	return false;
+}
+
+void The_Maze::printMethod(int length, int visited, pair<int, int>path[], string method)
 {
 	cout << "Using " << method << " : ";
 	cout << "Path Length :" << length << endl << endl;
-	for (int i = length ; i >= 0 ;  i--)
+	for (int i = length; i >= 0; i--)
 	{
 		cout << "(" << (path[i].second) / 2 << "," << (path[i].first) / 2 << ")" << " ";
 	}
