@@ -196,10 +196,10 @@ void The_Maze::CustomizeShapeOfMaze() {
 		for (int j = 0; j < coloumn - 1; j++) {
 			if (i == 0) {		// first row 
 				if (j & 1) {
-					Maze[i][j] = '-'; 
+					Maze[i][j] = '-';
 				}
 				else {
-					Maze[i][j] = '+'; 
+					Maze[i][j] = '+';
 				}
 			}
 			if (i == row - 2) {		//second row
@@ -212,13 +212,13 @@ void The_Maze::CustomizeShapeOfMaze() {
 			}
 			if (j == 0) {			// first coloumn 
 				if (i & 1) {
-					Maze[i][j] = '|'; 
+					Maze[i][j] = '|';
 				}
 				else {
-					Maze[i][j] = '+'; 
+					Maze[i][j] = '+';
 				}
 			}
-			if (j == coloumn-2) {		// last coloumn 
+			if (j == coloumn - 2) {		// last coloumn 
 				if (i & 1) {
 					Maze[i][j] = '|';
 				}
@@ -226,29 +226,31 @@ void The_Maze::CustomizeShapeOfMaze() {
 					Maze[i][j] = '+';
 				}
 			}
-			if (isValid(i,j)) {			// The rest 
+			if (isValid(i, j)) {			// The rest 
 				if (i % 2 == 0 && j % 2 == 0) {
 					if (Maze[i][j] == '#') {
-						Maze[i][j] = '+'; 
+						Maze[i][j] = '+';
 					}
 				}
-				if ( (i & 1) && Maze[i][j] == '#') {
-					if ( Maze[i-1][j] != ' ' ) {
-						Maze[i][j] = '|'; 
+				if ((i & 1) && Maze[i][j] == '#') {
+					if (Maze[i - 1][j] != ' ') {
+						Maze[i][j] = '|';
 					}
 				}
-				
+
 			}
-			
+
 		}
 	}
 	for (int i = 0; i < row - 1; i++) {		// adding the last element '-'
 		for (int j = 0; j < coloumn - 1; j++) {
 			if (Maze[i][j] == '#') {
-				Maze[i][j] = '-'; 
+				Maze[i][j] = '-';
 			}
 		}
 	}
+}
+
 double The_Maze::BestFact(pair<int, int> point)
 {
 	double fact = sqrt(pow((endingPoint.first - point.first), 2) + pow((endingPoint.second - point.second), 2));
