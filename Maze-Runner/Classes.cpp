@@ -343,8 +343,10 @@ void The_Maze::getChild(node point, int x, int y, priority_queue<pair<double, pa
 void The_Maze::BFS()
 {
 	zeroVisitedArray();
-	int count = 0;
-
+	int count = 1;
+	while (!Node.empty()) {
+		Node.pop();
+	}
 	pair<int, pair<int, int>> ** Cells = new pair<int, pair<int, int>>*[row];
 	for (int i = 0; i < row; i++)
 	{
@@ -405,24 +407,32 @@ void The_Maze::BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node te
 	BackTrack[0].second = temp.y;
 	while (Cells[temp.x][temp.y].second.first != -1)
 	{
+		z++;
 		BackTrack[z].first = Cells[temp.x][temp.y].second.first;
 		BackTrack[z].second = Cells[temp.x][temp.y].second.second;
 		xAxis = temp.x;
 		temp.x = Cells[temp.x][temp.y].second.first;
 		temp.y = Cells[xAxis][temp.y].second.second;
-		z++;
+		
 	}
 
 	pair<int, int> *BackTrack2 = new pair<int, int>[z / 2 + 1];
 	int iterator = z / 2;
 	for (int j = z; j >= 0; j = j - 2)
 	{
-		BackTrack2[iterator] = BackTrack[j];
+		if (j != z) {
+			BackTrack2[iterator] = BackTrack[j];
+		}
 		iterator--;
 	}
 
 	printMethod(z / 2, count / 2, BackTrack2, "Breadth First Search");
-
+	delete []BackTrack;
+	delete []BackTrack2;
+	for (int i = 0; i < row; i++)
+	{
+		delete []Cells[i];
+	}
 }
 void The_Maze::dfs()
 {
