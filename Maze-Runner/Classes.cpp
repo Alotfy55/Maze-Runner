@@ -8,7 +8,7 @@ The_Maze::The_Maze()
 
 The_Maze::~The_Maze()
 {
-	clear(); 
+	clear();
 }
 
 
@@ -29,30 +29,30 @@ void The_Maze::clear() {
 //// take the name of the txt file then load it into the 2d maze 
 void The_Maze::takeInput(string name)
 {
-		ifstream file(name + ".txt");
-		if (!file.is_open()) {
-			cout << "Invalid file name\n"; 
-			return; 
-		}
-		file >> coloumn >> row ;
-		file.ignore();
-		row = row * 2 + 2;
-		coloumn = coloumn * 2 + 2;
-		creating_2D_arrays();
-		for (int i = 0; i < row ; i++) {
-			string maze;
-			getline(file, maze);
-			for (int j = 0; j < maze.length(); j++) {
-				Maze[i][j] = maze[j];
-				if (Maze[i][j] == 'S') {
-					startingPoint = { i, j };
-				}
-				if (Maze[i][j] == 'E') {
-					endingPoint = { i, j };
-				}
-
+	ifstream file(name + ".txt");
+	if (!file.is_open()) {
+		cout << "Invalid file name\n";
+		return;
+	}
+	file >> coloumn >> row;
+	file.ignore();
+	row = row * 2 + 2;
+	coloumn = coloumn * 2 + 2;
+	creating_2D_arrays();
+	for (int i = 0; i < row; i++) {
+		string maze;
+		getline(file, maze);
+		for (int j = 0; j < maze.length(); j++) {
+			Maze[i][j] = maze[j];
+			if (Maze[i][j] == 'S') {
+				startingPoint = { i, j };
 			}
+			if (Maze[i][j] == 'E') {
+				endingPoint = { i, j };
+			}
+
 		}
+	}
 }
 
 
@@ -96,84 +96,84 @@ void The_Maze::zeroVisitedArray() {
 	}
 }
 
-void The_Maze::GenerateMaze() 
+void The_Maze::GenerateMaze()
 {
-	
-	cout << "Please enter the length : "; 
-	cin >> row; 
-	cout << "and the width : "; 
-	cin >> coloumn; 
-	row = row * 2 + 2; 
-	coloumn = coloumn * 2  + 2; 
-	creating_2D_arrays(); 
+
+	cout << "Please enter the length : ";
+	cin >> row;
+	cout << "and the width : ";
+	cin >> coloumn;
+	row = row * 2 + 2;
+	coloumn = coloumn * 2 + 2;
+	creating_2D_arrays();
 	zeroVisitedArray();
-	fillMaze(); 
-	Generation(); 
-	CustomizeShapeOfMaze() ;
+	fillMaze();
+	Generation();
+	CustomizeShapeOfMaze();
 }
 
 
 //// Generation of the maze using dfs starting from ( 1 , 1 ) 
 void The_Maze::Generation() {
-	stack <pair< int, int >> Nodes; 
-	Nodes.push({ 1,1 }); 
-	visitedPositions[1][1] = 1; 
-	while (!Nodes.empty()) { 
-		pair < int, int > curNode = Nodes.top(); 
+	stack <pair< int, int >> Nodes;
+	Nodes.push({ 1,1 });
+	visitedPositions[1][1] = 1;
+	while (!Nodes.empty()) {
+		pair < int, int > curNode = Nodes.top();
 		pair < int, int > nextNode = GetRandomNeighbour(curNode.first, curNode.second);
 		if (nextNode.first == -1) {
-			Nodes.pop(); 
+			Nodes.pop();
 		}
 		else {
-			visitedPositions[nextNode.first][nextNode.second] = 1; 
+			visitedPositions[nextNode.first][nextNode.second] = 1;
 			Nodes.push(nextNode);
-			ConnectTwoNodes(curNode, nextNode); 
+			ConnectTwoNodes(curNode, nextNode);
 		}
 	}
-	Maze[1][1] = 'S'; 
-	Maze[row - 3][coloumn - 3] = 'E'; 
-	startingPoint = { 1,1 }; 
-	endingPoint = { row - 3 , coloumn - 3 }; 
+	Maze[1][1] = 'S';
+	Maze[row - 3][coloumn - 3] = 'E';
+	startingPoint = { 1,1 };
+	endingPoint = { row - 3 , coloumn - 3 };
 }
 
 
 //// Returns a random neighbour to a certain node 
-pair < int , int > The_Maze::GetRandomNeighbour(int i , int j ) {
-	vector <pair < int, int >> allNeighbours; 
-	int dx[] = { 0 , 0 ,  2 , -2}; 
+pair < int, int > The_Maze::GetRandomNeighbour(int i, int j) {
+	vector <pair < int, int >> allNeighbours;
+	int dx[] = { 0 , 0 ,  2 , -2 };
 	int dy[] = { 2 , -2 , 0 , 0 };
 	for (int k = 0; k < 4; k++) {
-		int xc = dx[k] + i, xy = dy[k] + j; 
+		int xc = dx[k] + i, xy = dy[k] + j;
 		if (isValid(xc, xy) && !visitedPositions[xc][xy]) {
-			allNeighbours.push_back({ xc,xy }); 
+			allNeighbours.push_back({ xc,xy });
 		}
 	}
 	if (allNeighbours.size() == 0)
 	{
 		allNeighbours.push_back({ -1,-1 });
-		return allNeighbours[0]; 
+		return allNeighbours[0];
 	}
-	int random = rand() % allNeighbours.size(); 
-	return allNeighbours[random]; 
+	int random = rand() % allNeighbours.size();
+	return allNeighbours[random];
 }
 
 
 //// Returns true if the random neighbours is within the boundaries of the maze 
 bool The_Maze::isValid(int i, int j) {
-	return i >= 1 && j >= 1 && i < row-1 && j < coloumn-1; 
+	return i >= 1 && j >= 1 && i < row - 1 && j < coloumn - 1;
 }
 
 
 //// Connect a road between two nodes on the maze 
-void The_Maze::ConnectTwoNodes(pair < int, int > node1, pair < int, int > node2) 
+void The_Maze::ConnectTwoNodes(pair < int, int > node1, pair < int, int > node2)
 {
 	if (node1.first == node2.first) {
 		for (int i = min(node2.second, node1.second); i <= max(node1.second, node2.second); i++) {
-			Maze[node1.first][i] = ' '; 
+			Maze[node1.first][i] = ' ';
 		}
 	}
 	else {
-		for (int i = min(node2.first, node1.first); i <= max(node1.first , node2.first); i++) {
+		for (int i = min(node2.first, node1.first); i <= max(node1.first, node2.first); i++) {
 			Maze[i][node1.second] = ' ';
 		}
 	}
@@ -181,11 +181,11 @@ void The_Maze::ConnectTwoNodes(pair < int, int > node1, pair < int, int > node2)
 
 
 //// Fill all the maze with walls 
-void The_Maze::fillMaze() 
+void The_Maze::fillMaze()
 {
-	for (int i = 0; i < row - 1 ; i++) {
-		for (int j = 0; j < coloumn - 1 ; j++) {
-			Maze[i][j] = '#'; 
+	for (int i = 0; i < row - 1; i++) {
+		for (int j = 0; j < coloumn - 1; j++) {
+			Maze[i][j] = '#';
 		}
 	}
 }
@@ -426,18 +426,23 @@ void The_Maze::BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node te
 }
 void The_Maze::dfs()
 {
+	dfs_path_ctr = 0;
+	dfs_steps_ctr = 0;
 	zeroVisitedArray();
 	dfs_help(startingPoint.first, startingPoint.second);
 	pair<int, int>* path = new pair<int, int>[s.size() + 1];
-	int i = s.size() - 1;
+	int i = s.size()-1;
+
 	while (s.empty() != true)
 	{
+
 		path[i].first = s.top().first;
 		path[i].second = s.top().second;
 		s.pop();
 		i--;
 	}
 	printMethod(dfs_path_ctr, dfs_steps_ctr, path, "Depth First Search");
+	delete path;
 }
 
 
@@ -485,6 +490,19 @@ bool The_Maze::dfs_help(int i, int j)
 		if (dfs_help(i, j - 2))
 		{
 			dfs_path_ctr++;
+			s.push(temp);
+			return true;
+		}
+	}
+	if (Maze[i - 1][j] == ' '&&visitedPositions[i - 2][j] != true)
+	{
+
+		visitedPositions[i - 2][j] = true;
+		dfs_steps_ctr++;
+		if (dfs_help(i - 2, j))
+		{
+			dfs_path_ctr++;
+
 			s.push(temp);
 			return true;
 		}
