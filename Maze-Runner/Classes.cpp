@@ -153,7 +153,7 @@ void The_Maze::addEdge(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes
 }
 int startNode;
 int endNode;
-void The_Maze::makeGraph()
+void The_Maze::DijkstraSearch()
 {
 	int N = ((length - 1) / 2)*((width - 1) / 2);
 	vector<pair<vertix, vector<pair<float, vertix>>>> Nodes(N);
