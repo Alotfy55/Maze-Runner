@@ -53,7 +53,7 @@ public:
 	~The_Maze();
 	void printMaze();
 	void zeroVisitedArray();
-	void makeGraph();
+	void DijkstraSearch();
 	float calcWeight(vertix s);
 	void addEdge(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes, vertix S);
 	void Dijkstra(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes);
