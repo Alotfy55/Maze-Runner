@@ -1,3 +1,6 @@
+//
+// Created by ziad on ٢٤‏/١١‏/٢٠١٩.
+//
 
 #ifndef MAZERUNNER_CLASS_H
 #define MAZERUNNER_CLASS_H
@@ -15,63 +18,46 @@ using namespace std;
 struct node
 {
 	int x, y;
-
+	int DistanceToPoint;
+	node* parent;
 	node()
 	{
-		x = 0; y = 0;
+		x = 0; y = 0; DistanceToPoint = 0; parent = NULL;
 	}
-	node(int posx, int posy)
+	node(int posx, int posy, int Dist)
 	{
 		x = posx;
 		y = posy;
+		DistanceToPoint = Dist;
 	}
 };
-
+struct vertix
+{
+	int num;
+	int x, y;
+	float cost;
+	int parent;
+};
 
 class The_Maze {
-	int row, coloumn;
+
 	pair <int, int> startingPoint, endingPoint;
+	
 	char** Maze;
 	bool** visitedPositions;
-	queue<node> Node;
-	pair<int, int>** parents;
-	stack<pair<int, int>> s;
-	int dfs_path_ctr = 0;
-	int dfs_steps_ctr = 0;
-	///// Generation of the maze 
 	void creating_2D_arrays();
-	void Generation(); 
-	pair < int, int > GetRandomNeighbour(int, int); 
-	bool isValid(int i, int j); 
-	void ConnectTwoNodes(pair< int, int >, pair < int, int >); 
-	void fillMaze();
-	void CustomizeShapeOfMaze();
-	/////
-	void zeroVisitedArray();
-	void clear();
-	void printMethod(int, int, pair<int, int>[], string);
-	/////
-	double BestFact(pair<int, int>);
-	int bestTrack(pair<int, int>, int, pair<int, int>[]);
-	void getChildren(node, priority_queue<pair<double, pair<int, int>>>&);
-	void getChild(node, int, int, priority_queue<pair<double, pair<int, int>>>&);
-	////
-	void BFS_Helper(pair<int, pair<int, int>> ** &Cells, node temp, node temp2);
-	void BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node temp2, int count);
-	////
-	bool dfs_help(int i, int j);
-	
-
-
 public:
+	int length, width;
 	The_Maze();
-	~The_Maze();
-	void GenerateMaze(); 
 	void takeInput(string);
+	~The_Maze();
 	void printMaze();
-	void BestFirst();
-	void BFS();
-	void dfs();
+	void zeroVisitedArray();
+	void makeGraph();
+	float calcWeight(vertix s);
+	void addEdge(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes, vertix S);
+	void Dijkstra(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes);
+	void showOut(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes);
 };
 
 
