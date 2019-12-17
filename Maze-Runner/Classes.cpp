@@ -240,15 +240,18 @@ void The_Maze::showOut(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes
 	}
 	par= Nodes[startNode].first;
 	out.push(make_pair(par.x, par.y));
-	int i, j;
+	int size = out.size(); //Number of Moves
+	pair<int, int>* thePath = new pair<int, int>[size]; //El array elly shayel el path
+	int ind = size-1; 
 	while (out.empty() == false)
 	{
-		i = out.top().first;
-		j = out.top().second;
-		Maze[i][j] = '*';
+		thePath[ind].first = out.top().first;
+		thePath[ind].second = out.top().second;
+		//Maze[out.top().first][out.top().second]='*' //hna b3'yr fe el maze nfsaha
 		out.pop();
+		ind--;
 	}
-	printMaze();
+	
 }
 
 
