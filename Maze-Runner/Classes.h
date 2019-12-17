@@ -47,7 +47,7 @@ class The_Maze {
 	bool** visitedPositions;
 	void creating_2D_arrays();
 public:
-	int length, width;
+	int coloumn, row;
 	The_Maze();
 	void takeInput(string);
 	~The_Maze();

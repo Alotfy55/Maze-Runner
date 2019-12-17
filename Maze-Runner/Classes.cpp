@@ -11,7 +11,7 @@ using namespace std;
 
 The_Maze::The_Maze()
 {
-	length = width = 0;
+	coloumn = row = 0;
 }
 
 
@@ -32,12 +32,12 @@ The_Maze::~The_Maze()
 void The_Maze::takeInput(string name)
 {
 	ifstream file(name + ".txt");
-	file >> length >> width;
+	file >> coloumn >> row;
 	file.ignore();
-	length = length * 2 + 2;
-	width = width * 2 + 2;
+	coloumn = coloumn * 2 + 2;
+	row = row * 2 + 2;
 	creating_2D_arrays();
-	for (int i = 0; i < width; i++) {
+	for (int i = 0; i < row; i++) {
 		string maze;
 		getline(file, maze);
 		for (int j = 0; j < maze.length(); j++) {
@@ -56,19 +56,19 @@ void The_Maze::takeInput(string name)
 
 void The_Maze::creating_2D_arrays()
 {
-	Maze = new char*[length];
-	visitedPositions = new bool*[length];
-	for (int i = 0; i < length; i++) {
-		Maze[i] = new char[width];
-		visitedPositions[i] = new bool[width];
+	Maze = new char*[coloumn];
+	visitedPositions = new bool*[coloumn];
+	for (int i = 0; i < coloumn; i++) {
+		Maze[i] = new char[row];
+		visitedPositions[i] = new bool[row];
 	}
 }
 
 void The_Maze::printMaze()
 {
-	for (int i = 0; i < width - 1; i++)
+	for (int i = 0; i < row - 1; i++)
 	{
-		for (int j = 0; j < length - 1; j++)
+		for (int j = 0; j < coloumn - 1; j++)
 		{
 			cout << Maze[i][j];
 		}
@@ -78,9 +78,9 @@ void The_Maze::printMaze()
 }
 
 void The_Maze::zeroVisitedArray() {
-	for (int i = 0; i < width; i++)
+	for (int i = 0; i < row; i++)
 	{
-		for (int j = 0; j < length; j++)
+		for (int j = 0; j < coloumn; j++)
 		{
 			visitedPositions[i][j] = false;
 		}
@@ -97,8 +97,8 @@ void The_Maze::addEdge(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes
 {
 	if (Maze[S.x + 1][S.y] == ' ')
 	{
-		float w = calcWeight(Nodes[S.num + ((length - 1) / 2)].first);
-		vertix E = Nodes[S.num + ((length - 1) / 2)].first;
+		float w = calcWeight(Nodes[S.num + ((coloumn - 1) / 2)].first);
+		vertix E = Nodes[S.num + ((coloumn - 1) / 2)].first;
 		if (Visited.find(E.num) == Visited.end())
 		{
 			Nodes[S.num].second.push_back(make_pair(w, E));
@@ -109,8 +109,8 @@ void The_Maze::addEdge(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes
 	}
 	if (Maze[S.x - 1][S.y] == ' ')
 	{
-		float w = calcWeight(Nodes[S.num - ((length - 1) / 2)].first);
-		vertix E = Nodes[S.num - ((length - 1) / 2)].first;
+		float w = calcWeight(Nodes[S.num - ((coloumn - 1) / 2)].first);
+		vertix E = Nodes[S.num - ((coloumn - 1) / 2)].first;
 		if (Visited.find(E.num) == Visited.end())
 		{
 			Nodes[S.num].second.push_back(make_pair(w, E));
@@ -155,14 +155,14 @@ int startNode;
 int endNode;
 void The_Maze::DijkstraSearch()
 {
-	int N = ((length - 1) / 2)*((width - 1) / 2);
+	int N = ((coloumn - 1) / 2)*((row - 1) / 2);
 	vector<pair<vertix, vector<pair<float, vertix>>>> Nodes(N);
 	int k = 0;
 	while (k < N)
 	{
-		for (int i = 1; i < width - 1; i += 2)
+		for (int i = 1; i < row - 1; i += 2)
 		{
-			for (int j = 1; j < length - 1; j += 2)
+			for (int j = 1; j < coloumn - 1; j += 2)
 			{
 				if (i == startingPoint.first && j == startingPoint.second)
 				{
@@ -200,7 +200,7 @@ void The_Maze::Dijkstra(vector<pair<vertix, vector<pair<float, vertix>>>> & Node
 	unordered_set<int> VisitedNodes;
 	vertix* temp = NULL;
 	float c;
-	int N = ((length - 1) / 2)*((width - 1) / 2);
+	int N = ((coloumn - 1) / 2)*((row - 1) / 2);
 	for (int i = 0; i < N; i++)
 	{
 		temp = &Nodes[i].first;
