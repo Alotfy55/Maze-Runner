@@ -19,6 +19,7 @@ int main() {
 			Maze.BestFirst();
 			Maze.BFS();
 			Maze.dfs();
+			Maze.DijkstraSearch();
 		}
 		else if (choice == 2) {
 			Maze.GenerateMaze(); 
@@ -27,6 +28,7 @@ int main() {
 		Maze.BestFirst();
 		Maze.BFS();
 		Maze.dfs(); 
+		Maze.DijkstraSearch();
 		 
 	}
 	return 0;

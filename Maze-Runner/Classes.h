@@ -9,6 +9,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <unordered_set>
 
 using namespace std;
 
@@ -26,7 +27,13 @@ struct node
 		y = posy;
 	}
 };
-
+struct vertix
+{
+	int num;
+	int x, y;
+	float cost;
+	int parent;
+};
 
 class The_Maze {
 	int row, coloumn;
@@ -60,7 +67,11 @@ class The_Maze {
 	void BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node temp2, int count);
 	////
 	bool dfs_help(int i, int j);
-	
+	////
+	float calcWeight(vertix s);
+	void addEdge(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes, vertix S);
+	void Dijkstra(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes);
+	void showOut(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes);
 
 
 public:
@@ -72,6 +83,7 @@ public:
 	void BestFirst();
 	void BFS();
 	void dfs();
+	void DijkstraSearch();
 };
 
 
