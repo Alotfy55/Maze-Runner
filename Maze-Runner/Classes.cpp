@@ -537,59 +537,59 @@ float The_Maze::calcWeight(vertix c)
 	return sqrt(pow(endingPoint.first - c.x, 2) + pow(endingPoint.second - c.y, 2));
 }
 unordered_set<int>Visited;
-void The_Maze::addEdge(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes, vertix S)
+void The_Maze::addEdge(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes)
 {
-	if (Maze[S.x + 1][S.y] == ' ')
+	int N = ((coloumn - 1) / 2)*((row - 1) / 2);
+	vertix v;
+	for (int i = 0; i < N; i++)
 	{
-		float w = calcWeight(Nodes[S.num + ((coloumn - 1) / 2)].first);
-		vertix E = Nodes[S.num + ((coloumn - 1) / 2)].first;
-		if (Visited.find(E.num) == Visited.end())
+		v = Nodes[i].first;
+		if (Maze[v.x + 1][v.y] == ' ')
 		{
-			Nodes[S.num].second.push_back(make_pair(w, E));
-			Nodes[E.num].second.push_back(make_pair(w, S));
-			Visited.insert(S.num);
-			addEdge(Nodes, E);
+			float w = calcWeight(Nodes[v.num + ((coloumn - 1) / 2)].first);
+			vertix E = Nodes[v.num + ((coloumn - 1) / 2)].first;
+			if (Visited.find(E.num) == Visited.end())
+			{
+				Nodes[v.num].second.push_back(make_pair(w, E));
+				Nodes[E.num].second.push_back(make_pair(w, v));
+				Visited.insert(v.num);
+			}
 		}
-	}
-	if (Maze[S.x - 1][S.y] == ' ')
-	{
-		float w = calcWeight(Nodes[S.num - ((coloumn - 1) / 2)].first);
-		vertix E = Nodes[S.num - ((coloumn - 1) / 2)].first;
-		if (Visited.find(E.num) == Visited.end())
+		if (Maze[v.x - 1][v.y] == ' ')
 		{
-			Nodes[S.num].second.push_back(make_pair(w, E));
-			Nodes[E.num].second.push_back(make_pair(w, S));
-			Visited.insert(S.num);
-			addEdge(Nodes, E);
+			float w = calcWeight(Nodes[v.num - ((coloumn - 1) / 2)].first);
+			vertix E = Nodes[v.num - ((coloumn - 1) / 2)].first;
+			if (Visited.find(E.num) == Visited.end())
+			{
+				Nodes[v.num].second.push_back(make_pair(w, E));
+				Nodes[E.num].second.push_back(make_pair(w, v));
+				Visited.insert(v.num);
+			}
 		}
-	}
-	if (Maze[S.x][S.y + 1] == ' ')
-	{
-		float w = calcWeight(Nodes[S.num + 1].first);
-		vertix E = Nodes[S.num + 1].first;
-		if (Visited.find(E.num) == Visited.end())
+		if (Maze[v.x][v.y + 1] == ' ')
 		{
-			Nodes[S.num].second.push_back(make_pair(w, E));
-			Nodes[E.num].second.push_back(make_pair(w, S));
-			Visited.insert(S.num);
-			addEdge(Nodes, E);
+			float w = calcWeight(Nodes[v.num + 1].first);
+			vertix E = Nodes[v.num + 1].first;
+			if (Visited.find(E.num) == Visited.end())
+			{
+				Nodes[v.num].second.push_back(make_pair(w, E));
+				Nodes[E.num].second.push_back(make_pair(w, v));
+				Visited.insert(v.num);
+			}
 		}
-	}
-	if (Maze[S.x][S.y - 1] == ' ')
-	{
-		float w = calcWeight(Nodes[S.num - 1].first);
-		vertix E = Nodes[S.num - 1].first;
-		if (Visited.find(E.num) == Visited.end())
+		if (Maze[v.x][v.y - 1] == ' ')
 		{
-			Nodes[S.num].second.push_back(make_pair(w, E));
-			Nodes[E.num].second.push_back(make_pair(w, S));
-			Visited.insert(S.num);
-			addEdge(Nodes, E);
-		}
+			float w = calcWeight(Nodes[v.num - 1].first);
+			vertix E = Nodes[v.num - 1].first;
+			if (Visited.find(E.num) == Visited.end())
+			{
+				Nodes[v.num].second.push_back(make_pair(w, E));
+				Nodes[E.num].second.push_back(make_pair(w, v));
+				Visited.insert(v.num);
+			}
 
+		}
 	}
-	else
-		return;
 }
 int startNode;
 int endNode;
@@ -628,8 +628,7 @@ void The_Maze::DijkstraSearch()
 		}
 
 	}
-	vertix s = Nodes[startNode].first;
-	addEdge(Nodes, s);
+	addEdge(Nodes);
 	Dijkstra(Nodes);
 }
 void The_Maze::Dijkstra(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes)
