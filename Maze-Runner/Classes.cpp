@@ -590,10 +590,6 @@ void The_Maze::addEdge(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes
 	}
 	else
 		return;
-
-
-
-	//Nodes[sNum].second.push_back(make_pair(15,Nodes[eNum].first));
 }
 int startNode;
 int endNode;
@@ -634,7 +630,6 @@ void The_Maze::DijkstraSearch()
 	}
 	vertix s = Nodes[startNode].first;
 	addEdge(Nodes, s);
-	vector<pair<float, vertix>>::iterator it;
 	Dijkstra(Nodes);
 }
 void The_Maze::Dijkstra(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes)
@@ -671,6 +666,7 @@ void The_Maze::Dijkstra(vector<pair<vertix, vector<pair<float, vertix>>>> & Node
 		}
 		VisitedNodes.insert(s->num);
 	}
+	VisitedNodes.clear();
 	showOut(Nodes);
 }
 void The_Maze::showOut(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes)
@@ -695,5 +691,6 @@ void The_Maze::showOut(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes
 		out.pop();
 		ind--;
 	}
+	Visited.clear();
 	printMethod(size-1, size , thePath, "Dijkstra");
 }
