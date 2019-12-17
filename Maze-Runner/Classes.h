@@ -69,7 +69,7 @@ class The_Maze {
 	bool dfs_help(int i, int j);
 	////
 	float calcWeight(vertix s);
-	void addEdge(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes, vertix S);
+	void addEdge(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes);
 	void Dijkstra(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes);
 	void showOut(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes);
 
