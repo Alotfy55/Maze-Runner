@@ -726,5 +726,5 @@ void The_Maze::showOut(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes
 		ind--;
 	}
 	Visited.clear();
-	printMethod(size-1, size , thePath, "Dijkstra");
+	printMethod(size-1, size , thePath, "Dijkstra Search");
 }
