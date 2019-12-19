@@ -179,6 +179,27 @@ void The_Maze::ConnectTwoNodes(pair < int, int > node1, pair < int, int > node2)
 	}
 }
 
+void The_Maze::saveMazetoFile() {
+	cout << "Enter the file name : "; 
+	string mazeFileName; 
+	cin >> mazeFileName;
+	ofstream file( mazeFileName + ".txt");
+	if (!file.is_open()) {
+		cout << "Error saving the generated maze\n"; 
+	}
+	file << (coloumn - 2) / 2 << " " << (row - 2) / 2 << endl; 
+	for (int i = 0; i < row - 1; i++) {
+		for (int j = 0; j < coloumn - 1; j++) {
+			file << Maze[i][j]; 
+		}
+		if (i != row - 2) {
+			file << endl; 
+		}
+	}
+	file.close(); 
+	 
+}
+
 
 //// Fill all the maze with walls 
 void The_Maze::fillMaze()
@@ -458,7 +479,7 @@ void The_Maze::dfs()
 
 bool The_Maze::dfs_help(int i, int j)
 {
-	visitedPositions[i][j] == true;
+	visitedPositions[i][j] = true;
 	pair<int, int>temp;
 	temp.first = i;
 	temp.second = j;

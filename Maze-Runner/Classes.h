@@ -78,6 +78,7 @@ public:
 	The_Maze();
 	~The_Maze();
 	void GenerateMaze(); 
+	void saveMazetoFile(); 
 	void takeInput(string);
 	void printMaze();
 	void BestFirst();

@@ -16,10 +16,6 @@ int main() {
 			cout << "Enter the file name : "; 
 			cin >> Mazename; 
 			Maze.takeInput(Mazename); 
-			Maze.BestFirst();
-			Maze.BFS();
-			Maze.dfs();
-			Maze.DijkstraSearch();
 		}
 		else if (choice == 2) {
 			Maze.GenerateMaze(); 
@@ -29,6 +25,11 @@ int main() {
 		Maze.BFS();
 		Maze.dfs(); 
 		Maze.DijkstraSearch();
+		cout << "Press 3 if you want to save the maze or else to proceed\n"; 
+		cin >> choice; 
+		if (choice == 3) {
+			Maze.saveMazetoFile(); 
+		}
 		 
 	}
 	return 0;
