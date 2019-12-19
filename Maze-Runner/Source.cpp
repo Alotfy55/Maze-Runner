@@ -5,32 +5,43 @@ using namespace std;
 int main() {
 
 	The_Maze Maze;
-	cout << "Welcome to MazeRunner\n"; 
+	bool found = true;
+	cout << "************************************************************************************************************************\n";
+	cout << "                                                   Welcome to MazeRunner                                                \n"; 
+	cout << "************************************************************************************************************************";
 	while (true) {
-		int choice;  
-		cout << "Press 1 to choose a maze from the file\n";
-		cout << "Press 2 to Generate a Maze\n"; 
-		cin >> choice; 
+		int choice;
+		char choice2;
+		cout << "\nEnter 1 to choose a constructed Maze.\n";
+		cout << "Enter 2 to Generate a Maze.\n";
+		cout << "Enter 3 to Exit.\n";
+		cout << "_____________________________________\nEnter here : ";
+		cin >> choice;
 		if (choice == 1) {
-			string Mazename; 
-			cout << "Enter the file name : "; 
-			cin >> Mazename; 
-			Maze.takeInput(Mazename); 
+			string Mazename;
+			cout << "Enter the file's name : ";
+			cin >> Mazename;
+			found = Maze.takeInput(Mazename);
 		}
 		else if (choice == 2) {
-			Maze.GenerateMaze(); 
+			Maze.GenerateMaze();
 		}
-		Maze.printMaze();
-		Maze.BestFirst();
-		Maze.BFS();
-		Maze.dfs(); 
-		Maze.DijkstraSearch();
-		cout << "Press 3 if you want to save the maze or else to proceed\n"; 
-		cin >> choice; 
-		if (choice == 3) {
-			Maze.saveMazetoFile(); 
+		else if (choice == 3)
+			break;
+		if (found == true) {
+			Maze.printMaze();
+			Maze.BestFirst();
+			Maze.BFS();
+			Maze.dfs();
+			Maze.DijkstraSearch();
+			if (choice == 2) {
+				cout << "Do you want to save the Maze? (Y/N) : ";
+				cin >> choice2;
+				if (choice2 == 'y' || choice2 == 'Y') {
+					Maze.saveMazetoFile();
+				}
+			}
 		}
-		 
 	}
 	return 0;
 }

@@ -27,12 +27,12 @@ void The_Maze::clear() {
 
 
 //// take the name of the txt file then load it into the 2d maze 
-void The_Maze::takeInput(string name)
+bool The_Maze::takeInput(string name)
 {
 	ifstream file(name + ".txt");
 	if (!file.is_open()) {
 		cout << "Invalid file name\n";
-		return;
+		return false;
 	}
 	file >> coloumn >> row;
 	file.ignore();
@@ -53,6 +53,7 @@ void The_Maze::takeInput(string name)
 
 		}
 	}
+	return true;
 }
 
 
@@ -73,6 +74,7 @@ void The_Maze::creating_2D_arrays()
 
 void The_Maze::printMaze()
 {
+	cout << "\n________________________________________________________________________________________________________________________\n";
 	for (int i = 0; i < row - 1; i++)
 	{
 		for (int j = 0; j < coloumn - 1; j++)
@@ -81,6 +83,7 @@ void The_Maze::printMaze()
 		}
 		cout << endl;
 	}
+	cout << "\n************************************************************************************************************************\n";
 }
 
 
@@ -98,10 +101,10 @@ void The_Maze::zeroVisitedArray() {
 
 void The_Maze::GenerateMaze()
 {
-
-	cout << "Please enter the length : ";
+	
+	cout << "\nMaze's Length : ";
 	cin >> row;
-	cout << "and the width : ";
+	cout << "Maze's Width : ";
 	cin >> coloumn;
 	row = row * 2 + 2;
 	coloumn = coloumn * 2 + 2;
@@ -545,12 +548,23 @@ void The_Maze::printMethod(int length, int visited, pair<int, int>path[], string
 {
 	cout << "Using " << method << " : ";
 	cout << "Path Length :" << length << endl << endl;
-	for (int i = length; i >= 0; i--)
+
+	int i = length;
+	while (i >= 0)
 	{
-		cout << "(" << (path[i].second) / 2 << "," << (path[i].first) / 2 << ")" << " ";
+		cout << "|  ";
+		for (int j = 0; j < 13; j++)
+		{
+			if (i >= 0) {
+				cout << "(" << (path[i].second) / 2 << "," << (path[i].first) / 2 << ")" << " ";
+				i--;
+			}
+		}
+		cout << endl << "|      " << endl;
+		
 	}
 	cout << endl << endl << "Total visited Cells :" << visited << endl;
-	cout << endl << "***********************************************************************************************************************\n\n" << endl;
+	cout << endl << "\n________________________________________________________________________________________________________________________\n" << endl;
 }
 
 float The_Maze::calcWeight(vertix c)

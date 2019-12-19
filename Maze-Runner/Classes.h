@@ -79,7 +79,7 @@ public:
 	~The_Maze();
 	void GenerateMaze(); 
 	void saveMazetoFile(); 
-	void takeInput(string);
+	bool takeInput(string);
 	void printMaze();
 	void BestFirst();
 	void BFS();
