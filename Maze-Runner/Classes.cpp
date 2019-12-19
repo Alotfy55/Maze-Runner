@@ -458,7 +458,7 @@ void The_Maze::dfs()
 
 bool The_Maze::dfs_help(int i, int j)
 {
-	visitedPositions[i][j] = true;
+	visitedPositions[i][j] == true;
 	pair<int, int>temp;
 	temp.first = i;
 	temp.second = j;
