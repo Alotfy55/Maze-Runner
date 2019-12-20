@@ -74,7 +74,7 @@ void The_Maze::creating_2D_arrays()
 
 void The_Maze::printMaze()
 {
-	cout << "\n________________________________________________________________________________________________________________________\n";
+	cout << "\n________________________________________________________________________________________________________________________\n" <<endl;
 	for (int i = 0; i < row - 1; i++)
 	{
 		for (int j = 0; j < coloumn - 1; j++)
@@ -546,7 +546,7 @@ bool The_Maze::dfs_help(int i, int j)
 
 void The_Maze::printMethod(int length, int visited, pair<int, int>path[], string method)
 {
-	cout << "Using " << method << " : ";
+	cout << endl<< "Using " << method << " : ";
 	cout << "Path Length :" << length << endl << endl;
 
 	int i = length;
@@ -563,6 +563,9 @@ void The_Maze::printMethod(int length, int visited, pair<int, int>path[], string
 		cout << endl << "|      " << endl;
 		
 	}
+	cout << endl;
+	if (method == "Dijkstra Search")
+		return;
 	cout << endl << endl << "Total visited Cells :" << visited << endl;
 	cout << endl << "\n________________________________________________________________________________________________________________________\n" << endl;
 }

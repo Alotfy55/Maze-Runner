@@ -10,37 +10,40 @@ int main() {
 	cout << "                                                   Welcome to MazeRunner                                                \n"; 
 	cout << "************************************************************************************************************************";
 	while (true) {
-		int choice;
-		char choice2;
+		string choice;
+		string choice2;
 		found = true;
 		cout << "\nEnter 1 to choose a constructed Maze.\n";
 		cout << "Enter 2 to Generate a Maze.\n";
 		cout << "Enter 3 to Exit.\n";
 		cout << "_____________________________________\nEnter here : ";
 		cin >> choice;
-		if (choice == 1) {
+		if (choice[0] == '1') {
 			string Mazename;
 			cout << "Enter the file's name : ";
 			cin >> Mazename;
 			found = Maze.takeInput(Mazename);
 		}
-		else if (choice == 2) {
+		else if (choice[0] == '2') {
 			Maze.GenerateMaze();
 		}
-		else if (choice == 3)
+		else if (choice[0] == 3)
 			break;
+		else continue;
 		if (found == true) {
 			Maze.printMaze();
 			Maze.BestFirst();
 			Maze.BFS();
 			Maze.dfs();
 			Maze.DijkstraSearch();
-			if (choice == 2) {
+			if (choice[0] == '2') {
 				cout << "Do you want to save the Maze? (Y/N) : ";
 				cin >> choice2;
-				if (choice2 == 'y' || choice2 == 'Y') {
+				if (choice2[0] == 'y' || choice2[0] == 'Y') {
 					Maze.saveMazetoFile();
 				}
+				else if (choice2[0] != 'n' || choice2[0] != 'N');
+				continue;
 			}
 		}
 	}
