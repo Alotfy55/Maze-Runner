@@ -5,13 +5,14 @@ using namespace std;
 int main() {
 
 	The_Maze Maze;
-	bool found = true;
+	bool found;
 	cout << "************************************************************************************************************************\n";
 	cout << "                                                   Welcome to MazeRunner                                                \n"; 
 	cout << "************************************************************************************************************************";
 	while (true) {
 		int choice;
 		char choice2;
+		found = true;
 		cout << "\nEnter 1 to choose a constructed Maze.\n";
 		cout << "Enter 2 to Generate a Maze.\n";
 		cout << "Enter 3 to Exit.\n";
