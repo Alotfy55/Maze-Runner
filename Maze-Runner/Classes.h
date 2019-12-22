@@ -10,7 +10,8 @@
 #include <map>
 #include <string>
 #include <unordered_set>
-
+#include <windows.h>
+#include <conio.h>
 using namespace std;
 
 struct node
@@ -38,7 +39,6 @@ struct vertix
 class The_Maze {
 	int row, coloumn;
 	pair <int, int> startingPoint, endingPoint;
-	char** Maze;
 	bool** visitedPositions;
 	queue<node> Node;
 	pair<int, int>** parents;
@@ -47,10 +47,10 @@ class The_Maze {
 	int dfs_steps_ctr = 0;
 	///// Generation of the maze 
 	void creating_2D_arrays();
-	void Generation(); 
-	pair < int, int > GetRandomNeighbour(int, int); 
-	bool isValid(int i, int j); 
-	void ConnectTwoNodes(pair< int, int >, pair < int, int >); 
+	void Generation();
+	pair < int, int > GetRandomNeighbour(int, int);
+	bool isValid(int i, int j);
+	void ConnectTwoNodes(pair< int, int >, pair < int, int >);
 	void fillMaze();
 	void CustomizeShapeOfMaze();
 	/////
@@ -77,14 +77,20 @@ class The_Maze {
 public:
 	The_Maze();
 	~The_Maze();
-	void GenerateMaze(); 
-	void saveMazetoFile(); 
+	char** Maze;
+	char** SavingMaze;
+	void GenerateMaze();
+	void saveMazetoFile();
 	bool takeInput(string);
 	void printMaze();
 	void BestFirst();
 	void BFS();
 	void dfs();
 	void DijkstraSearch();
+	void MazeSave();
+	void game();
+	bool movePlayer(pair<int, int>&, char,int&);
+	void printMaze(pair<int, int>, char);
 };
 
 

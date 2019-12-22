@@ -1,4 +1,5 @@
 #include "Classes.h"
+#pragma warning(disable : 4996)
 using namespace std;
 
 The_Maze::The_Maze()
@@ -60,11 +61,13 @@ bool The_Maze::takeInput(string name)
 //// allocating the dynamic arrays 
 void The_Maze::creating_2D_arrays()
 {
+	SavingMaze = new char*[row];
 	Maze = new char*[row];
 	parents = new pair<int, int>*[row];
 	visitedPositions = new bool*[row];
 	for (int i = 0; i < row; i++) {
 		Maze[i] = new char[coloumn];
+		SavingMaze[i] = new char[coloumn];
 		visitedPositions[i] = new bool[coloumn];
 		parents[i] = new pair<int, int>[coloumn];
 	}
@@ -74,7 +77,7 @@ void The_Maze::creating_2D_arrays()
 
 void The_Maze::printMaze()
 {
-	cout << "\n________________________________________________________________________________________________________________________\n" <<endl;
+	cout << "\n________________________________________________________________________________________________________________________\n" << endl;
 	for (int i = 0; i < row - 1; i++)
 	{
 		for (int j = 0; j < coloumn - 1; j++)
@@ -101,7 +104,7 @@ void The_Maze::zeroVisitedArray() {
 
 void The_Maze::GenerateMaze()
 {
-	
+
 	cout << "\nMaze's Length : ";
 	cin >> row;
 	cout << "Maze's Width : ";
@@ -183,24 +186,24 @@ void The_Maze::ConnectTwoNodes(pair < int, int > node1, pair < int, int > node2)
 }
 
 void The_Maze::saveMazetoFile() {
-	cout << "Enter the file name : "; 
-	string mazeFileName; 
+	cout << "Enter the file name : ";
+	string mazeFileName;
 	cin >> mazeFileName;
-	ofstream file( mazeFileName + ".txt");
+	ofstream file(mazeFileName + ".txt");
 	if (!file.is_open()) {
-		cout << "Error saving the generated maze\n"; 
+		cout << "Error saving the generated maze\n";
 	}
-	file << (coloumn - 2) / 2 << " " << (row - 2) / 2 << endl; 
+	file << (coloumn - 2) / 2 << " " << (row - 2) / 2 << endl;
 	for (int i = 0; i < row - 1; i++) {
 		for (int j = 0; j < coloumn - 1; j++) {
-			file << Maze[i][j]; 
+			file << SavingMaze[i][j];
 		}
 		if (i != row - 2) {
-			file << endl; 
+			file << endl;
 		}
 	}
-	file.close(); 
-	 
+	file.close();
+
 }
 
 
@@ -437,7 +440,7 @@ void The_Maze::BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node te
 		xAxis = temp.x;
 		temp.x = Cells[temp.x][temp.y].second.first;
 		temp.y = Cells[xAxis][temp.y].second.second;
-		
+
 	}
 
 	pair<int, int> *BackTrack2 = new pair<int, int>[z / 2 + 1];
@@ -451,11 +454,11 @@ void The_Maze::BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node te
 	}
 
 	printMethod(z / 2, count / 2, BackTrack2, "Breadth First Search");
-	delete []BackTrack;
-	delete []BackTrack2;
+	delete[]BackTrack;
+	delete[]BackTrack2;
 	for (int i = 0; i < row; i++)
 	{
-		delete []Cells[i];
+		delete[]Cells[i];
 	}
 }
 void The_Maze::dfs()
@@ -465,7 +468,7 @@ void The_Maze::dfs()
 	zeroVisitedArray();
 	dfs_help(startingPoint.first, startingPoint.second);
 	pair<int, int>* path = new pair<int, int>[s.size() + 1];
-	int i = s.size()-1;
+	int i = s.size() - 1;
 
 	while (s.empty() != true)
 	{
@@ -546,7 +549,7 @@ bool The_Maze::dfs_help(int i, int j)
 
 void The_Maze::printMethod(int length, int visited, pair<int, int>path[], string method)
 {
-	cout << endl<< "Using " << method << " : ";
+	cout << endl << "Using " << method << " : ";
 	cout << "Path Length :" << length << endl << endl;
 
 	int i = length;
@@ -561,7 +564,7 @@ void The_Maze::printMethod(int length, int visited, pair<int, int>path[], string
 			}
 		}
 		cout << endl << "|      " << endl;
-		
+
 	}
 	cout << endl;
 	if (method == "Dijkstra Search")
@@ -724,10 +727,114 @@ void The_Maze::showOut(vector<pair<vertix, vector<pair<float, vertix>>>> & Nodes
 	{
 		thePath[ind].first = out.top().first;
 		thePath[ind].second = out.top().second;
-		//Maze[out.top().first][out.top().second]='*' //hna b3'yr fe el maze nfsaha
+		if (out.top() != startingPoint && out.top() != endingPoint) {
+			Maze[out.top().first][out.top().second] = '*'; //hna b3'yr fe el maze nfsaha
+		}
 		out.pop();
 		ind--;
 	}
 	Visited.clear();
-	printMethod(size-1, size , thePath, "Dijkstra Search");
+	printMethod(size - 1, size, thePath, "Dijkstra Search");
+}
+
+
+
+void The_Maze::game()
+{
+	pair<int, int> playerPos = startingPoint;
+	bool update;
+	int moves = 0;
+	char input = 'W';
+	system("cls");
+	printMaze(playerPos, '*');
+	while (Maze[playerPos.second][playerPos.first] != 'E')
+	{
+		update = FALSE;
+		if (kbhit())
+		{
+			input = _getch();
+			if (input == 'e' || input == 'E')
+				return;
+			update = movePlayer(playerPos, input,moves);
+		}
+		if (update)
+		{
+			system("cls");
+			printMaze(playerPos, '*');
+		}
+		
+	}
+	cout << "\nCongratulations! You finished the Maze in " << moves << " moves.\n";
+}
+
+bool The_Maze::movePlayer(pair<int, int>& playerPos, char direction,int &moves)
+{
+	if (direction == 'a' || direction == 'A')
+	{
+		if (Maze[playerPos.second][playerPos.first - 1] == ' ' || Maze[playerPos.second][playerPos.first - 2] == 'S' || Maze[playerPos.second][playerPos.first - 2] == 'E')
+		{
+			playerPos.first -= 2;
+			moves++;
+			return true;
+		}
+	}
+	else if (direction == 'd' || direction == 'D')
+	{
+		if (Maze[playerPos.second][playerPos.first + 1] == ' ' || Maze[playerPos.second][playerPos.first + 2] == 'S' || Maze[playerPos.second][playerPos.first + 2] == 'E')
+		{
+			playerPos.first += 2;
+			moves++;
+			return true;
+		}
+	}
+	else if (direction == 'w' || direction == 'W')
+	{
+		if (Maze[playerPos.second - 1][playerPos.first] == ' ' || Maze[playerPos.second - 2][playerPos.first] == 'S' || Maze[playerPos.second - 2][playerPos.first] == 'E')
+		{
+			playerPos.second -= 2;
+			moves++;
+			return true;
+		}
+	}
+	else if (direction == 's' || direction == 'S')
+	{
+		if (Maze[playerPos.second + 1][playerPos.first] == ' ' || Maze[playerPos.second + 2][playerPos.first] == 'S' || Maze[playerPos.second + 2][playerPos.first] == 'E')
+		{
+			playerPos.second += 2;
+			moves++;
+			return true;
+		}
+	}
+	else return false;
+}
+void The_Maze::printMaze(pair<int, int> playerPos, char playerCharacter)
+{
+	cout << endl << "\t S down \t W up \t A left \t D right\t E to return to main menu" << endl;
+	cout << "\n************************************************************************************************************************\n";
+	for (int i = 0; i < row - 1; i++)
+	{
+		for (int j = 0; j < coloumn - 1; j++)
+		{
+			if (i == playerPos.second && j == playerPos.first)
+			{
+				cout << playerCharacter;
+				continue;
+			}
+			cout << Maze[i][j];
+		}
+		cout << endl;
+	}
+
+}
+void The_Maze::MazeSave()
+{
+	for (int i = 0; i < row - 1; i++)
+	{
+		for (int j = 0; j < coloumn - 1; j++)
+		{
+			SavingMaze[i][j] = Maze[i][j];
+		}
+
+	}
+
 }

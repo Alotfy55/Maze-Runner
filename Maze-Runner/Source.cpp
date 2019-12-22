@@ -6,10 +6,11 @@ int main() {
 
 	The_Maze Maze;
 	bool found;
-	cout << "************************************************************************************************************************\n";
-	cout << "                                                   Welcome to MazeRunner                                                \n"; 
-	cout << "************************************************************************************************************************";
+
 	while (true) {
+		cout << "************************************************************************************************************************\n";
+		cout << "                                                   Welcome to MazeRunner                                                \n";
+		cout << "************************************************************************************************************************";
 		string choice;
 		string choice2;
 		found = true;
@@ -27,25 +28,78 @@ int main() {
 		else if (choice[0] == '2') {
 			Maze.GenerateMaze();
 		}
-		else if (choice[0] == 3)
+		else if (choice[0] == '3')
 			break;
-		else continue;
+		else {
+			system("cls");
+			continue;
+		}
 		if (found == true) {
+			Maze.MazeSave();
 			Maze.printMaze();
-			Maze.BestFirst();
-			Maze.BFS();
-			Maze.dfs();
-			Maze.DijkstraSearch();
+			cout << "Do You want to solve the maze Using Searching Algorithms or Your brain? " << endl << endl;
+			cout << "1)Brain \n2)Computer Algorithms \nThe Choice is yours: ";
+			cin >> choice2;
+			if (choice2[0] == '1')
+			{
+				Maze.game();
+				cout << "Do you want to compare yourself with Computer Algorithms (Y/N) : ";
+				cin >> choice2;
+				cout << "\n************************************************************************************************************************\n";
+				if (choice2[0] == 'y' || choice2[0] == 'Y') {
+					Maze.BestFirst();
+					cout << "Press any key to Continue!";
+					_getch();
+					printf("\r                                      ");
+					Maze.BFS();
+					cout << "Press any key to Continue!";
+					_getch();
+					printf("\r                                      ");
+					Maze.dfs();
+					cout << "Press any key to Continue!";
+					_getch();
+					printf("\r                                      ");
+					Maze.DijkstraSearch();
+					
+					Maze.printMaze();
+				}
+				else {
+					system("cls");
+					continue;
+				}
+			}
+			else if (choice2[0] == '2')
+			{
+				Maze.BestFirst();
+				cout << "Press any key to Continue!";
+				_getch();
+				printf("\r                                      ");
+				Maze.BFS();
+				cout << "Press any key to Continue!";
+				_getch();
+				printf("\r                                      ");
+				Maze.dfs();
+				cout << "Press any key to Continue!";
+				_getch();
+				printf("\r                                      ");
+				Maze.DijkstraSearch();
+				cout << "\n\nThe Shortest Path is.";
+				Maze.printMaze();
+			}
+			else {
+				system("cls");
+				continue;
+			}
 			if (choice[0] == '2') {
 				cout << "Do you want to save the Maze? (Y/N) : ";
 				cin >> choice2;
 				if (choice2[0] == 'y' || choice2[0] == 'Y') {
 					Maze.saveMazetoFile();
 				}
-				else if (choice2[0] != 'n' || choice2[0] != 'N');
-				continue;
+
 			}
 		}
+		system("cls");
 	}
 	return 0;
 }
