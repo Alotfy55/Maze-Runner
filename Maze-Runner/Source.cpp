@@ -60,7 +60,10 @@ int main() {
 					_getch();
 					printf("\r                                      ");
 					Maze.DijkstraSearch();
-					
+					cout << "Press any key to Continue!";
+					_getch();
+					printf("\r                                      ");
+					cout << "\n\nThe Shortest Path is.";
 					Maze.printMaze();
 				}
 				else {
@@ -83,6 +86,9 @@ int main() {
 				_getch();
 				printf("\r                                      ");
 				Maze.DijkstraSearch();
+				cout << "Press any key to Continue!";
+				_getch();
+				printf("\r                                      ");
 				cout << "\n\nThe Shortest Path is.";
 				Maze.printMaze();
 			}
