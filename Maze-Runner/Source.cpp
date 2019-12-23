@@ -8,7 +8,7 @@ int main() {
 
 	The_Maze Maze;
 	bool found;
-
+	system("color 1f ");
 	while (true) {
 		cout << "*********************************************************************************************************************";
 		cout << "                                                   Welcome to MazeRunner                                                \n";
