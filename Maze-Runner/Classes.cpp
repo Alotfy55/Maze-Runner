@@ -805,9 +805,9 @@ bool The_Maze::movePlayer(pair<int, int>& playerPos, char direction,int &moves)
 			return true;
 		}
 	}
-	return false;
+	else return false;
 }
-void The_Maze::printMaze(pair<int, int> playerPos, const char playerCharacter)
+void The_Maze::printMaze(pair<int, int> playerPos, char playerCharacter)
 {
 	cout << endl << "\t S down \t W up \t A left \t D right\t E to return to main menu" << endl;
 	cout << "\n************************************************************************************************************************\n";
@@ -817,21 +817,10 @@ void The_Maze::printMaze(pair<int, int> playerPos, const char playerCharacter)
 		{
 			if (i == playerPos.second && j == playerPos.first)
 			{
-				printf("*");
+				cout << playerCharacter;
 				continue;
 			}
-			if (Maze[i][j] == '|')
-				printf("|");
-			else if (Maze[i][j] == '-')
-				printf("-");
-			else if (Maze[i][j] == '+')
-				printf("+");
-			else if (Maze[i][j] == ' ')
-				printf(" ");
-			else if (Maze[i][j] == 'S')
-				printf("S");
-			else if (Maze[i][j] == 'E')
-				printf("E");
+			cout << Maze[i][j];
 		}
 		cout << endl;
 	}
@@ -849,30 +838,3 @@ void The_Maze::MazeSave()
 	}
 
 }
-
-
-/*
-void The_Maze::printMaze(pair<int, int> playerPos, const char playerCharacter)
-{
-	cout << endl << "\t S down \t W up \t A left \t D right\t E to return to main menu" << endl;
-	cout << "\n************************************************************************************************************************\n";
-	for (int i = 0; i < row - 1; i++)
-	{
-		for (int j = 0; j < coloumn - 1; j++)
-		{
-			if (i == playerPos.second )
-			{
-				if (j == playerPos.first)
-					cout << playerCharacter;
-				else
-					cout << Maze[i][j];
-				continue;
-			}
-			cout << *Maze[i];
-			
-		}
-		cout << endl;
-	}
-
-}
-*/

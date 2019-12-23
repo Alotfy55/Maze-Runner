@@ -90,7 +90,7 @@ public:
 	void MazeSave();
 	void game();
 	bool movePlayer(pair<int, int>&, char,int&);
-	void printMaze(pair<int, int>, const char);
+	void printMaze(pair<int, int>, char);
 };
 
 

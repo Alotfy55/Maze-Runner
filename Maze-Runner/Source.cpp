@@ -2,8 +2,6 @@
 
 using namespace std;
 
-void search(The_Maze Maze);
-
 int main() {
 
 	The_Maze Maze;
@@ -49,7 +47,24 @@ int main() {
 				cin >> choice2;
 				cout << "\n************************************************************************************************************************\n";
 				if (choice2[0] == 'y' || choice2[0] == 'Y') {
-					search(Maze);
+					Maze.BestFirst();
+					cout << "Press any key to Continue!";
+					_getch();
+					printf("\r                                      ");
+					Maze.BFS();
+					cout << "Press any key to Continue!";
+					_getch();
+					printf("\r                                      ");
+					Maze.dfs();
+					cout << "Press any key to Continue!";
+					_getch();
+					printf("\r                                      ");
+					Maze.DijkstraSearch();
+					cout << "Press any key to Continue!";
+					_getch();
+					printf("\r                                      ");
+					cout << "\n\nThe Shortest Path is.";
+					Maze.printMaze();
 				}
 				else {
 					system("cls");
@@ -58,7 +73,24 @@ int main() {
 			}
 			else if (choice2[0] == '2')
 			{
-				search(Maze);
+				Maze.BestFirst();
+				cout << "Press any key to Continue!";
+				_getch();
+				printf("\r                                      ");
+				Maze.BFS();
+				cout << "Press any key to Continue!";
+				_getch();
+				printf("\r                                      ");
+				Maze.dfs();
+				cout << "Press any key to Continue!";
+				_getch();
+				printf("\r                                      ");
+				Maze.DijkstraSearch();
+				cout << "Press any key to Continue!";
+				_getch();
+				printf("\r                                      ");
+				cout << "\n\nThe Shortest Path is.";
+				Maze.printMaze();
 			}
 			else {
 				system("cls");
@@ -76,26 +108,4 @@ int main() {
 		system("cls");
 	}
 	return 0;
-}
-
-void search(The_Maze Maze)
-{
-	Maze.BestFirst();
-	cout << "Press any key to Continue!";
-	_getch();
-	printf("\r                                      ");
-	Maze.BFS();
-	cout << "Press any key to Continue!";
-	_getch();
-	printf("\r                                      ");
-	Maze.dfs();
-	cout << "Press any key to Continue!";
-	_getch();
-	printf("\r                                      ");
-	Maze.DijkstraSearch();
-	cout << "Press any key to Continue!";
-	_getch();
-	printf("\r                                      ");
-	cout << "\n\nThe Shortest Path is.";
-	Maze.printMaze();
 }
