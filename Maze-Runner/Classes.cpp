@@ -75,7 +75,7 @@ void The_Maze::creating_2D_arrays()
 
 void The_Maze::printMaze()
 {
-	cout << "\n________________________________________________________________________________________________________________________\n" << endl;
+	cout << "\n_____________________________________________________________________________________________________________________\n" << endl;
 	for (int i = 0; i < row - 1; i++)
 	{
 		for (int j = 0; j < coloumn - 1; j++)
@@ -84,7 +84,7 @@ void The_Maze::printMaze()
 		}
 		cout << endl;
 	}
-	cout << "\n************************************************************************************************************************\n";
+	cout << "\n*********************************************************************************************************************\n";
 }
 
 
@@ -568,7 +568,7 @@ void The_Maze::printMethod(int length, int visited, pair<int, int>path[], string
 	if (method == "Dijkstra Search")
 		return;
 	cout << endl << endl << "Total visited Cells :" << visited << endl;
-	cout << endl << "\n________________________________________________________________________________________________________________________\n" << endl;
+	cout << endl << "\n_____________________________________________________________________________________________________________________\n" << endl;
 }
 
 float The_Maze::calcWeight(vertix c)
@@ -808,7 +808,7 @@ bool The_Maze::movePlayer(pair<int, int>& playerPos, char direction, int &moves)
 void The_Maze::printMaze(pair<int, int> playerPos, const char playerCharacter)
 {
 	cout << endl << "\t S down \t W up \t A left \t D right\t E to return to main menu" << endl;
-	cout << "\n************************************************************************************************************************\n";
+	cout << "\n*********************************************************************************************************************\n";
 	for (int i = 0; i < row - 1; i++)
 	{
 		for (int j = 0; j < coloumn - 1; j++)

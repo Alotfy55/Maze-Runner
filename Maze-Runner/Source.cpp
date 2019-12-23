@@ -58,6 +58,7 @@ int main() {
 			else if (choice2[0] == '2')
 			{
 				search(Maze);
+				system("pause");
 			}
 			else {
 				system("cls");
