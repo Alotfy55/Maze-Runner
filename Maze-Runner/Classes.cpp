@@ -378,7 +378,7 @@ void The_Maze::BFS()
 		Cells[i] = new pair<int, pair<int, int>>[coloumn];
 	}
 
-	node temp(startingPoint.first, startingPoint.second), temp2(0, 0);
+	node temp(startingPoint.first, startingPoint.second);
 
 	Node.push(temp);
 	visitedPositions[temp.x][temp.y] = true;
@@ -395,18 +395,19 @@ void The_Maze::BFS()
 
 		if (temp.x == endingPoint.first && temp.y == endingPoint.second)
 		{
-			BFS_Found(Cells, temp, temp2, count);
+			BFS_Found(Cells, temp, count);
 			break;
 		}
 		else {
-			BFS_Helper(Cells, temp, temp2);
+			BFS_Helper(Cells, temp);
 		}
 		count++;
 	}
 }
 
-void The_Maze::BFS_Helper(pair<int, pair<int, int>> ** &Cells, node temp, node temp2) //Checks Neighbouring cells.
+void The_Maze::BFS_Helper(pair<int, pair<int, int>> ** &Cells, node temp) //Checks Neighbouring cells.
 {
+	node temp2;
 	int x[4]{ 1,-1,0,0 }, y[4]{ 0,0,1,-1 };
 	for (int i = 0; i < 4; i++) {
 		if ((Maze[temp.x + x[i]][temp.y + y[i]] == ' ' || Maze[temp.x + x[i]][temp.y + y[i]] == 'E') &&
@@ -422,7 +423,7 @@ void The_Maze::BFS_Helper(pair<int, pair<int, int>> ** &Cells, node temp, node t
 		}
 	}
 }
-void The_Maze::BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node temp2, int count)
+void The_Maze::BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, int count)
 {
 	int z = 0, xAxis;
 	pair<int, int> *BackTrack = new pair<int, int>[count];
@@ -433,8 +434,7 @@ void The_Maze::BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node te
 	while (Cells[temp.x][temp.y].second.first != -1)
 	{
 		z++;
-		BackTrack[z].first = Cells[temp.x][temp.y].second.first;
-		BackTrack[z].second = Cells[temp.x][temp.y].second.second;
+		BackTrack[z] = Cells[temp.x][temp.y].second;
 		xAxis = temp.x;
 		temp.x = Cells[temp.x][temp.y].second.first;
 		temp.y = Cells[xAxis][temp.y].second.second;
@@ -445,9 +445,9 @@ void The_Maze::BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node te
 	int iterator = z / 2;
 	for (int j = z; j >= 0; j = j - 2)
 	{
-		if (j != z) {
+		
 			BackTrack2[iterator] = BackTrack[j];
-		}
+		
 		iterator--;
 	}
 
@@ -458,6 +458,7 @@ void The_Maze::BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node te
 	{
 		delete[]Cells[i];
 	}
+	delete []Cells;
 }
 void The_Maze::dfs()
 {

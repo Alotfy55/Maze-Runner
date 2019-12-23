@@ -63,8 +63,8 @@ class The_Maze {
 	void getChildren(node, priority_queue<pair<double, pair<int, int>>>&);
 	void getChild(node, int, int, priority_queue<pair<double, pair<int, int>>>&);
 	////
-	void BFS_Helper(pair<int, pair<int, int>> ** &Cells, node temp, node temp2);
-	void BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, node temp2, int count);
+	void BFS_Helper(pair<int, pair<int, int>> ** &Cells, node temp);
+	void BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, int count);
 	////
 	bool dfs_help(int i, int j);
 	////
