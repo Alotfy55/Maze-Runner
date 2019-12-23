@@ -445,9 +445,7 @@ void The_Maze::BFS_Found(pair<int, pair<int, int>> ** &Cells, node temp, int cou
 	int iterator = z / 2;
 	for (int j = z; j >= 0; j = j - 2)
 	{
-		
-			BackTrack2[iterator] = BackTrack[j];
-		
+		BackTrack2[iterator] = BackTrack[j];	
 		iterator--;
 	}
 
