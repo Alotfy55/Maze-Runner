@@ -78,7 +78,6 @@ public:
 	The_Maze();
 	~The_Maze();
 	char** Maze;
-	char** SavingMaze;
 	void GenerateMaze();
 	void saveMazetoFile();
 	bool takeInput(string);
@@ -87,10 +86,10 @@ public:
 	void BFS();
 	void dfs();
 	void DijkstraSearch();
-	void MazeSave();
+	void FixMaze();
 	void game();
-	bool movePlayer(pair<int, int>&, char,int&);
-	void printMaze(pair<int, int>, char);
+	bool movePlayer(pair<int, int>&, char, int&);
+	void printMaze(pair<int, int>, const char);
 };
 
 

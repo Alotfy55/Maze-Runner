@@ -61,13 +61,11 @@ bool The_Maze::takeInput(string name)
 //// allocating the dynamic arrays 
 void The_Maze::creating_2D_arrays()
 {
-	SavingMaze = new char*[row];
 	Maze = new char*[row];
 	parents = new pair<int, int>*[row];
 	visitedPositions = new bool*[row];
 	for (int i = 0; i < row; i++) {
 		Maze[i] = new char[coloumn];
-		SavingMaze[i] = new char[coloumn];
 		visitedPositions[i] = new bool[coloumn];
 		parents[i] = new pair<int, int>[coloumn];
 	}
@@ -196,7 +194,7 @@ void The_Maze::saveMazetoFile() {
 	file << (coloumn - 2) / 2 << " " << (row - 2) / 2 << endl;
 	for (int i = 0; i < row - 1; i++) {
 		for (int j = 0; j < coloumn - 1; j++) {
-			file << SavingMaze[i][j];
+			file << Maze[i][j];
 		}
 		if (i != row - 2) {
 			file << endl;
@@ -755,19 +753,19 @@ void The_Maze::game()
 			input = _getch();
 			if (input == 'e' || input == 'E')
 				return;
-			update = movePlayer(playerPos, input,moves);
+			update = movePlayer(playerPos, input, moves);
 		}
 		if (update)
 		{
 			system("cls");
 			printMaze(playerPos, '*');
 		}
-		
+
 	}
 	cout << "\nCongratulations! You finished the Maze in " << moves << " moves.\n";
 }
 
-bool The_Maze::movePlayer(pair<int, int>& playerPos, char direction,int &moves)
+bool The_Maze::movePlayer(pair<int, int>& playerPos, char direction, int &moves)
 {
 	if (direction == 'a' || direction == 'A')
 	{
@@ -805,9 +803,9 @@ bool The_Maze::movePlayer(pair<int, int>& playerPos, char direction,int &moves)
 			return true;
 		}
 	}
-	else return false;
+	return false;
 }
-void The_Maze::printMaze(pair<int, int> playerPos, char playerCharacter)
+void The_Maze::printMaze(pair<int, int> playerPos, const char playerCharacter)
 {
 	cout << endl << "\t S down \t W up \t A left \t D right\t E to return to main menu" << endl;
 	cout << "\n************************************************************************************************************************\n";
@@ -817,24 +815,65 @@ void The_Maze::printMaze(pair<int, int> playerPos, char playerCharacter)
 		{
 			if (i == playerPos.second && j == playerPos.first)
 			{
-				cout << playerCharacter;
+				printf("*");
 				continue;
 			}
-			cout << Maze[i][j];
+			if (Maze[i][j] == '|')
+				printf("|");
+			else if (Maze[i][j] == '-')
+				printf("-");
+			else if (Maze[i][j] == '+')
+				printf("+");
+			else if (Maze[i][j] == ' ')
+				printf(" ");
+			else if (Maze[i][j] == 'S')
+				printf("S");
+			else if (Maze[i][j] == 'E')
+				printf("E");
 		}
 		cout << endl;
 	}
 
 }
-void The_Maze::MazeSave()
+void The_Maze::FixMaze()
 {
 	for (int i = 0; i < row - 1; i++)
 	{
 		for (int j = 0; j < coloumn - 1; j++)
 		{
-			SavingMaze[i][j] = Maze[i][j];
+			if (Maze[i][j] == '*') {
+				Maze[i][j] = ' ';
+			}
+
 		}
 
 	}
 
 }
+
+
+/*
+void The_Maze::printMaze(pair<int, int> playerPos, const char playerCharacter)
+{
+	cout << endl << "\t S down \t W up \t A left \t D right\t E to return to main menu" << endl;
+	cout << "\n************************************************************************************************************************\n";
+	for (int i = 0; i < row - 1; i++)
+	{
+		for (int j = 0; j < coloumn - 1; j++)
+		{
+			if (i == playerPos.second )
+			{
+				if (j == playerPos.first)
+					cout << playerCharacter;
+				else
+					cout << Maze[i][j];
+				continue;
+			}
+			cout << *Maze[i];
+
+		}
+		cout << endl;
+	}
+
+}
+*/
